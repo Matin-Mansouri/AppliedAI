@@ -1,118 +1,89 @@
 
-# Loading, Preprocessing, and Splitting the Dataset with Reducing Image
 # Decision Tree supervised
 
 import os
 import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, classification_report
-import tensorflow as tf
-from tensorflow.keras.preprocessing.image import load_img, img_to_array
-import matplotlib.pyplot as plt
-import seaborn as sns
+from sklearn import tree
+from sklearn.preprocessing import LabelEncoder
+from PIL import Image
+import graphviz
 
-# Load Images Function
+
+# Load Images Function to load iamges from Drive and put the in array
 def load_images(base_path, classes, image_size):
-    images = []
-    labels = []
-    for cls in classes:
-        cls_path = os.path.join(base_path, cls)
-        for img_name in os.listdir(cls_path):
-            img_path = os.path.join(cls_path, img_name)
-            try:
-                img = load_img(img_path, target_size=image_size)
-                img_array = img_to_array(img)
-                images.append(img_array)
-                labels.append(cls)
-            except Exception as e:
-                print(f"Error loading image {img_path}: {e}")
-    
-    images = np.array(images)
-    labels = np.array(labels)
-    return images, labels
+
+  # Initialize lists to store images and labels
+ images = []
+ labels = []
+ for class_folder in classes:
+    folder_path = os.path.join(base_path, class_folder)
+    image_files = [f for f in os.listdir(folder_path) if f.endswith('.jpg')]
+
+    for image_file in image_files:
+        image_path = os.path.join(folder_path, image_file)
+        image = Image.open(image_path).convert('RGB')
+        image = image.resize(image_size)
+        image_array = np.array(image)
+        #print(image_array.shape)
+        images.append(image)
+        labels.append(class_folder)  # Use the folder name as the label
+  
+
+ # Convert images to a numpy array and normalize(# Normalize pixel values to [0, 1])
+ images = np.array(images, dtype=np.float32) / 255.0  
+ #print(images.shape)
+
+ # Flatten the images (samples x features) to conver array to 1D array
+ images_flattened = images.reshape(len(images), -1)
+
+
+ # Encode class lables to numerical values
+ label_encoder = LabelEncoder()
+ labels = label_encoder.fit_transform(labels)
+
+ # return an array of features(image pixele)
+ # each row of this array present exteracted featurs from one train iamges
+ # and labels array pressent and array of class lables
+ return images_flattened, labels
 
 # Define paths and classes
-base_path = "D:/Concordia/Applied AI/Summer 2024/Project - Place 365/COMP6721"  # Update this with the correct path
-classes = ["Airport_terminal", "Market", "Movie_theater", "Museum", "Restaurant"]
-image_size = (64, 64)  # Reduced image size
-
+base_path = "/content/drive/MyDrive/ColabNotebooks/DataSet/train"  # Update this with the correct path
+classes = ["airport_terminal", "market", "movie_theater", "museum", "restaurant"]
+image_size = (256, 256)
+X_train = []
+Y_train = []
 # Load images and labels
-images, labels = load_images(base_path, classes, image_size)
+X_train,Y_train =load_images(base_path,classes,image_size)
 
-# Encode labels as integers
-label_to_index = {label: index for index, label in enumerate(classes)}
-encoded_labels = np.array([label_to_index[label] for label in labels])
+# class lable Encoding
+le = LabelEncoder()
+lable_classes = le.fit_transform(classes)
 
-# Split the dataset into training, validation, and test sets
-X_train, X_temp, y_train, y_temp = train_test_split(images, encoded_labels, test_size=0.3, random_state=42)
-X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=42)
-
-# Convert images to float32 and normalize pixel values
-X_train = X_train.astype('float32') / 255.0
-X_val = X_val.astype('float32') / 255.0
-X_test = X_test.astype('float32') / 255.0
-
-# Reshape data for Decision Tree
-X_train_reshaped = X_train.reshape(X_train.shape[0], -1)
-X_val_reshaped = X_val.reshape(X_val.shape[0], -1)
-X_test_reshaped = X_test.reshape(X_test.shape[0], -1)
-
+length = len(X_train)
+print (length)
 # Train Decision Tree Classifier
-dt_classifier = DecisionTreeClassifier(random_state=42)
-dt_classifier.fit(X_train_reshaped, y_train)
+dtc = tree.DecisionTreeClassifier(criterion="entropy")
+dtc.fit(X_train, Y_train)
+#tree.plot_tree(dtc)
 
-# Predict on Validation and Test sets
-y_val_pred = dt_classifier.predict(X_val_reshaped)
-y_test_pred = dt_classifier.predict(X_test_reshaped)
+# print a nicer tree using graphviz
 
-# Calculate Metrics
-def print_metrics(y_true, y_pred, dataset_name):
-    accuracy = accuracy_score(y_true, y_pred)
-    precision = precision_score(y_true, y_pred, average='weighted')
-    recall = recall_score(y_true, y_pred, average='weighted')
-    f1 = f1_score(y_true, y_pred, average='weighted')
-    print(f"{dataset_name} Metrics:")
-    print(f"Accuracy: {accuracy:.4f}")
-    print(f"Precision: {precision:.4f}")
-    print(f"Recall: {recall:.4f}")
-    print(f"F1-score: {f1:.4f}")
-    print("\nClassification Report:\n", classification_report(y_true, y_pred, target_names=classes))
-    return accuracy, precision, recall, f1
+# Generate feature names useing numerical indices 
+num_features = X_train.shape[1]
+feature_names = [f'pixel_{i}' for i in range(num_features)]
 
-# Print Metrics for Validation and Test sets
-val_metrics = print_metrics(y_val, y_val_pred, "Validation")
-test_metrics = print_metrics(y_test, y_test_pred, "Test")
 
-# Plot Confusion Matrix
-def plot_confusion_matrix(y_true, y_pred, classes, dataset_name):
-    cm = confusion_matrix(y_true, y_pred)
-    plt.figure(figsize=(10, 7))
-    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=classes, yticklabels=classes)
-    plt.xlabel('Predicted')
-    plt.ylabel('True')
-    plt.title(f'Confusion Matrix - {dataset_name}')
-    plt.show()
 
-plot_confusion_matrix(y_val, y_val_pred, classes, "Validation")
-plot_confusion_matrix(y_test, y_test_pred, classes, "Test")
+dot_data = tree.export_graphviz(dtc, out_file=None,
+feature_names=feature_names,
+class_names=classes,
+filled=True, rounded=True)
+graph = graphviz.Source(dot_data)
+graph.render("DecisionTree") # the DecisionTree will save in a pdf file
 
-# -----------------------------------------------------------------------------
-# Performance Comparison with Different Hyperparameters
 
-# Example: Modify max_depth and min_samples_split
-dt_classifier = DecisionTreeClassifier(max_depth=10, min_samples_split=5, random_state=42)
-dt_classifier.fit(X_train_reshaped, y_train)
-y_val_pred = dt_classifier.predict(X_val_reshaped)
-y_test_pred = dt_classifier.predict(X_test_reshaped)
 
-# Print Metrics for modified hyperparameters
-val_metrics_mod = print_metrics(y_val, y_val_pred, "Validation with modified hyperparameters")
-test_metrics_mod = print_metrics(y_test, y_test_pred, "Test with modified hyperparameters")
 
-# Plot Confusion Matrix for modified hyperparameters
-plot_confusion_matrix(y_val, y_val_pred, classes, "Validation with modified hyperparameters")
-plot_confusion_matrix(y_test, y_test_pred, classes, "Test with modified hyperparameters")
 
 
 
