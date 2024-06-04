@@ -1,6 +1,4 @@
 
-# Decision Tree supervised
-
 import os
 import numpy as np
 from sklearn import tree
@@ -54,7 +52,7 @@ X_train = []
 Y_train = []
 
 
-# Load  train images and labels
+# Load  train images and labelsa
 X_train,Y_train =load_images(os.path.join(base_path,"train"),classes,image_size)
 
 # Load  Val images and labels
@@ -66,11 +64,12 @@ X_val,Y_val =load_images(os.path.join(base_path, "val"),classes,image_size)
 le = LabelEncoder()
 lable_classes = le.fit_transform(classes)
 
-length = len(X_train)
-print (length)
+
 # Train Decision Tree Classifier
-dtc = tree.DecisionTreeClassifier(criterion="entropy")
+dtc = tree.DecisionTreeClassifier(criterion="entropy",max_depth=5,min_samples_split=2)
 dtc.fit(X_train, Y_train)
+
+
 # Make predictions on the train set
 y_train_pred = dtc.predict(X_train)
 
@@ -85,7 +84,7 @@ accuracy = accuracy_score(Y_train, y_train_pred)
 precision = precision_score(Y_train, y_train_pred, average='macro') 
 recall = recall_score(Y_train, y_train_pred, average='macro')        
 f1 = f1_score(Y_train, y_train_pred, average='macro')                
-conf_matrix = confusion_matrix(Y_train, y_train_pred)
+conf_matrix = confusion_matrix(Y_train, y_train_pred,sample_weight=None)
 class_report = classification_report(Y_train, y_train_pred)
 
 # Print the metrics
@@ -101,7 +100,7 @@ accuracy = accuracy_score(Y_val, y_val_pred)
 precision = precision_score(Y_val, y_val_pred, average='macro') 
 recall = recall_score(Y_val, y_val_pred, average='macro')        
 f1 = f1_score(Y_val, y_val_pred, average='macro')                
-conf_matrix = confusion_matrix(Y_val, y_val_pred)
+conf_matrix = confusion_matrix(Y_val, y_val_pred,sample_weight=None)
 class_report = classification_report(Y_val, y_val_pred)
 
 # Print the metrics
