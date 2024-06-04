@@ -1,0 +1,2 @@
+Best hyperparameters: {'max_depth': 5}
+Validation Accuracy with best model: 0.3675

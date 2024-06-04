@@ -74,7 +74,7 @@ dtc.fit(X_train, Y_train)
 
 # Define the parameter grid
 param_grid = {
-    'max_depth': [5, 10, 14]
+    'min_samples_split': [2, 5, 10]
 }
 
 # Instantiate GridSearchCV
