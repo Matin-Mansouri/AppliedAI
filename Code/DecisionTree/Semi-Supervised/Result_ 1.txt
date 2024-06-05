@@ -1,0 +1,28 @@
+ max_depth=5,
+ min_samples_split=10
+ labeled_portion=0.2,
+ threshold=0.9, 
+ criterion='threshold'
+
+ val Accuracy: 0.31
+val Precision: 0.32464026794461576
+val Recall: 0.31
+val F1 Score: 0.315257788905153
+val Confusion Matrix:
+ [[27 24  5 14 10]
+ [14 20 12 17 17]
+ [ 4 12 34 13 17]
+ [11 25  6 25 13]
+ [13 18  9 22 18]]
+val Classification Report:
+               precision    recall  f1-score   support
+
+           0       0.39      0.34      0.36        80
+           1       0.20      0.25      0.22        80
+           2       0.52      0.42      0.47        80
+           3       0.27      0.31      0.29        80
+           4       0.24      0.23      0.23        80
+
+    accuracy                           0.31       400
+   macro avg       0.32      0.31      0.32       400
+weighted avg       0.32      0.31      0.32       400
