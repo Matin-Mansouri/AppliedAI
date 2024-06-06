@@ -6,6 +6,8 @@
   from PIL import Image
   from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, classification_report
   from sklearn.model_selection import GridSearchCV
+  import matplotlib.pyplot as plt
+  import graphviz
 
   class MyDecisionTree:
 
@@ -46,7 +48,7 @@
 
       def plot_tree(self, dtc, feature_names,classes):
           # print a nicer tree using graphviz
-          import graphviz
+         
           dot_data = tree.export_graphviz(dtc, out_file=None,
                                           feature_names=feature_names,
                                           class_names=classes,
@@ -72,25 +74,6 @@
           print("Classification Report:\n", class_report)
 
 
-      def decisiontree_optimization(self,X_train,Y_train,param_grid):
-
-          from sklearn.model_selection import GridSearchCV
-          # Train Decision Tree Classifier
-          dtc = tree.DecisionTreeClassifier(criterion="entropy")
-          dtc.fit(X_train, Y_train)
-          # Instantiate GridSearchCV
-          grid_search = GridSearchCV(estimator=dtc, param_grid=param_grid, cv=5)
-
-          # Fit the GridSearchCV object to the training data
-          grid_search.fit(X_train, Y_train)
-
-          # Print the best hyperparameters found
-          print("Best hyperparameters:", grid_search.best_params_)
-
-          # Get the best model
-          best_model = grid_search.best_estimator_
-
-          return(best_model)
 
 
       def decisiontree_optimization(self, X_train, Y_train, X_val, Y_val, param_grid):
@@ -123,7 +106,7 @@
 
       def plot_performance(self, performance_log):
 
-        import matplotlib.pyplot as plt
+       
         """
         Plot performance improvement per hyperparameter combination.
 
@@ -148,53 +131,60 @@
             plt.show()
 
 
+  if __name__ == "__main__":
 
-  # Update this with the correct path to load val and train data
-  base_path = "/content/drive/MyDrive/ColabNotebooks/DataSet/"
-  classes = ["airport_terminal", "market", "movie_theater", "museum", "restaurant"]
-  image_size = (256, 256)
-  X_train = []
-  Y_train = []
+    # Update this with the correct path
+    base_path = "/content/drive/MyDrive/ColabNotebooks/DataSet/"
+    classes = ["airport_terminal", "market", "movie_theater", "museum", "restaurant"]
+    image_size = (256, 256)
+    X_train = []
+    Y_train = []
+    odt = MyDecisionTree()
 
-  X_train, Y_train = odt.load_images(os.path.join(base_path, "train"), classes)
-  X_val = []
-  Y_val = []
-  X_val,Y_val =odt.load_images(os.path.join(base_path, "val"),classes)
-
-
-
- 
-  # create an object of the MyDecisionTree class
-  odt = MyDecisionTree()
-
-  # Hyperparameter optimization min_samples_split
-  best_model, performance_log = odt.decisiontree_optimization(X_train, Y_train, X_val, Y_val, { 'min_samples_leaf': [4,8,11,13]})
-
-  # Evaluate the optimized model on the validation set
-  y_val_pred_best=[]
-  y_val_pred_best = best_model.predict(X_val)
-  print("Optimized Model Evaluation on Validation Set:")
-  odt.decisiontree_evaluate(Y_val, y_val_pred_best)
-  # Plot performance comparison
-  odt.plot_performance(performance_log)
+    X_train, Y_train = odt.load_images(os.path.join(base_path, "train"), classes)
+    # Load  Val images and labels
+    X_val = []
+    Y_val = []
+    X_val,Y_val =odt.load_images(os.path.join(base_path, "val"),classes)
 
 
-  # Hyperparameter optimization min_samples_leaf
-  best_model, performance_log = odt.decisiontree_optimization(X_train, Y_train, X_val, Y_val, {'min_samples_split': [15,20,30]})
-  # Evaluate the optimized model on the validation set
-  y_val_pred_best=[]
-  y_val_pred_best = best_model.predict(X_val)
-  print("Optimized Model Evaluation on Validation Set:")
-  odt.decisiontree_evaluate(Y_val, y_val_pred_best)
-  # Plot performance comparison
-  odt.plot_performance(performance_log)
 
-  # Hyperparameter optimization
-  best_model, performance_log = odt.decisiontree_optimization(X_train, Y_train, X_val, Y_val, {'max_Depth': [4,7,8,10,12,14]})
-  # Evaluate the optimized model on the validation set
-  y_val_pred_best=[]
-  y_val_pred_best = best_model.predict(X_val)
-  print("Optimized Model Evaluation on Validation Set:")
-  odt.decisiontree_evaluate(Y_val, y_val_pred_best)
-  # Plot performance comparison
-  odt.plot_performance(performance_log)
+    # Hyperparameter optimization min_samples_split
+    best_model, performance_log = odt.decisiontree_optimization(X_train, Y_train, X_val, Y_val, {'min_samples_split': [15,20,30]})
+
+    # Evaluate the optimized model on the validation set
+    y_val_pred_best=[]
+    y_val_pred_best = best_model.predict(X_val)
+    print("Optimized Model Evaluation on Validation Set:")
+    odt.decisiontree_evaluate(Y_val, y_val_pred_best)
+
+    # Plot performance comparison
+    odt.plot_performance(performance_log)
+
+
+    # Hyperparameter optimization min_samples_leaf
+    best_model, performance_log = odt.decisiontree_optimization(X_train, Y_train, X_val, Y_val, {'min_samples_leaf': [15,20,30]})
+
+    # Evaluate the optimized model on the validation set
+    y_val_pred_best=[]
+    y_val_pred_best = best_model.predict(X_val)
+    print("Optimized Model Evaluation on Validation Set:")
+    odt.decisiontree_evaluate(Y_val, y_val_pred_best)
+
+    # Plot performance comparison
+    odt.plot_performance(performance_log)
+
+    # Hyperparameter optimization
+    best_model, performance_log = odt.decisiontree_optimization(X_train, Y_train, X_val, Y_val, {'max_Depth': [15,20,30]})
+
+    # Evaluate the optimized model on the validation set
+    y_val_pred_best=[]
+    y_val_pred_best = best_model.predict(X_val)
+    print("Optimized Model Evaluation on Validation Set:")
+    odt.decisiontree_evaluate(Y_val, y_val_pred_best)
+
+    # Plot performance comparison
+    odt.plot_performance(performance_log)
+
+
+
