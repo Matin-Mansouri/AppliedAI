@@ -6,6 +6,8 @@
   from PIL import Image
   from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, classification_report
   from sklearn.model_selection import GridSearchCV
+  from sklearn.semi_supervised import SelfTrainingClassifier
+  import graphviz
 
   class MyDecisionTree:
 
@@ -46,7 +48,6 @@
 
       def plot_tree(self, dtc, feature_names,classes):
           # print a nicer tree using graphviz
-          import graphviz
           dot_data = tree.export_graphviz(dtc, out_file=None,
                                           feature_names=feature_names,
                                           class_names=classes,
@@ -71,26 +72,6 @@
           print("Confusion Matrix:\n", conf_matrix)
           print("Classification Report:\n", class_report)
 
-
-      def decisiontree_optimization(self,X_train,Y_train,param_grid):
-
-          from sklearn.model_selection import GridSearchCV
-          # Train Decision Tree Classifier
-          dtc = tree.DecisionTreeClassifier(criterion="entropy")
-          dtc.fit(X_train, Y_train)
-          # Instantiate GridSearchCV
-          grid_search = GridSearchCV(estimator=dtc, param_grid=param_grid, cv=5)
-
-          # Fit the GridSearchCV object to the training data
-          grid_search.fit(X_train, Y_train)
-
-          # Print the best hyperparameters found
-          print("Best hyperparameters:", grid_search.best_params_)
-
-          # Get the best model
-          best_model = grid_search.best_estimator_
-
-          return(best_model)
 
 
       def decisiontree_optimization(self, X_train, Y_train, X_val, Y_val, param_grid):
@@ -148,61 +129,97 @@
             plt.show()
 
 
+      def semi_supervised_self_training(self,X, y, labeled_portion=0.2,
+                                  threshold=0.9, criterion='threshold',max_depth=5, min_samples_split=10 ,min_samples_leaf=5
+                                 ):
+
+            # Separate labeled and unlabeled data
+            num_unlabeled = int(len(y) * (1 - labeled_portion))
+            unlabeled_indices = np.random.choice(np.arange(len(y)), num_unlabeled, replace=False)
+            Y_semi = np.copy(y)
+            Y_semi[unlabeled_indices] = -1
+
+            # Create the SelfTrainingClassifier with a DecisionTreeClassifier base classifier
+            base_dtc = tree.DecisionTreeClassifier(criterion="entropy", max_depth=max_depth, min_samples_split=min_samples_split ,min_samples_leaf=min_samples_leaf)
+            self_training_clf = SelfTrainingClassifier(base_dtc, criterion=criterion, threshold=threshold)
+
+            # Fit the self-training classifier on the semi-labeled data
+            self_training_clf.fit(X, Y_semi)
+
+            return self_training_clf    
 
 
-  # Update this with the correct path
-  base_path = "/content/drive/MyDrive/ColabNotebooks/DataSet/"
-  classes = ["airport_terminal", "market", "movie_theater", "museum", "restaurant"]
-  image_size = (256, 256)
-  X_train = []
-  Y_train = []
-  odt = MyDecisionTree()
 
-  X_train, Y_train = odt.load_images(os.path.join(base_path, "train"), classes)
-  # Load  Val images and labels
-  X_val = []
-  Y_val = []
-  X_val,Y_val =odt.load_images(os.path.join(base_path, "val"),classes)
+  if __name__ == "__main__":
+    # Update this with the correct path
+    base_path = "/content/drive/MyDrive/ColabNotebooks/DataSet/"
+    classes = ["airport_terminal", "market", "movie_theater", "museum", "restaurant"]
+    image_size = (256, 256)
+    X_train = []
+    Y_train = []
+    odt = MyDecisionTree()
 
-  # Generate feature names using numerical indices
-  num_features = X_train.shape[1]
-  feature_names = [f'pixel_{i}' for i in range(num_features)]
+    X_train, Y_train = odt.load_images(os.path.join(base_path, "train"), classes)
+    # Load  Val images and labels
+    X_val = []
+    Y_val = []
+    X_val,Y_val =odt.load_images(os.path.join(base_path, "val"),classes)
 
-  # Train Decision Tree Classifier
-  dtc = tree.DecisionTreeClassifier(criterion="entropy")
-  dtc.fit(X_train, Y_train)
+    # Generate feature names using numerical indices
+    num_features = X_train.shape[1]
+    feature_names = [f'pixel_{i}' for i in range(num_features)]
 
-
-  # Plot the decision tree
-  odt.plot_tree(dtc, feature_names,classes)
-
-  # Make predictions on the train set
-  y_train_pred = dtc.predict(X_train)
-
-  # Make predictions on the val set
-  y_val_pred = dtc.predict(X_val)
-
-  # Evaluate the model on train daata
-  odt.decisiontree_evaluate(Y_train,y_train_pred)
-
-  # Evaluate the model on validation data
-  odt.decisiontree_evaluate(Y_val,y_val_pred)
-
-# at this point please run the main_optimization.py to gain best hyperparameter value among selected range values.
-#  we exeute and the result for three hyperparameter including
-# max_depth:[4,7,8,10,12,14], 'min_samples_leaf': [4,8,11,13], 'min_samples_split': [15,20,30]
-# then   # Train Decision Tree Classifier with best selected hyperparameters
- 
-
-   # Train Decision Tree Classifier
-  dtc = tree.DecisionTreeClassifier(criterion="entropy")
-  dtc.fit(X_train, Y_train)
+    # Train Decision Tree Classifier
+    dtc = tree.DecisionTreeClassifier(criterion="entropy")
+    dtc.fit(X_train, Y_train)
 
 
-  # Make predictions on the train set
-  y_train_pred = dtc.predict(X_train)
+    # Plot the decision tree
+    odt.plot_tree(dtc, feature_names,classes)
 
-  # Make predictions on the val set
-  y_val_pred = dtc.predict(X_val)
+    # Make predictions on the train set
+    y_train_pred = dtc.predict(X_train)
+
+    # Make predictions on the val set
+    y_val_pred = dtc.predict(X_val)
+
+    # Evaluate the model on train daata
+    odt.decisiontree_evaluate(Y_train,y_train_pred)
+
+    # Evaluate the model on validation data
+    odt.decisiontree_evaluate(Y_val,y_val_pred)
+
+    # at this point execte the main_optimization to gain best hyperparameter value among selected range values.
+    #  we exeute and the result for three hyperparameter including
+    # max_depth:[4,7,8,10,12,14], 'min_samples_split': [4,8,11,13], 'min_samples_leaf': [15,20,30]
+
+    # then   # Train Decision Tree Classifier with best selected hyperparameters
+    best_model = tree.DecisionTreeClassifier(criterion="entropy",max_depth=5, min_samples_split=10 ,min_samples_leaf=5)
+    best_model.fit(X_train, Y_train)
+    # Make predictions on the train set
+    y_train_pred = best_model.predict(X_train)
+    # Make predictions on the val set
+    y_val_pred_best = best_model.predict(X_val)
+    # Evaluate the model on train daata
+    odt.decisiontree_evaluate(Y_val,y_val_pred_best)
+    # Evaluate the model on validation data
+    odt.decisiontree_evaluate(Y_train,y_val_pred_best)
+
+    # Train Decision Tree Classifier (semi_supervised ) with best selected hyperparameters
+    min_samples_leaf = [4,8,11,13]
+    min_samples_split = [15,20,30]
+    max_depth = [4,7,8,10,12,14]
+    self_training=odt.semi_supervised_self_training(X_train, Y_train, labeled_portion=0.2,
+                                    threshold=0.9, criterion='threshold',max_depth=5, min_samples_split=10 ,min_samples_leaf=5)
+    
+    self_training.fit(X_train, Y_train)
+    y_val_pred_semi=self_training.predict(X_val)
+    # Evaluate the model on train daata
+    odt.decisiontree_evaluate(Y_val,y_val_pred_semi)
+
+
+
+
+
 
 
