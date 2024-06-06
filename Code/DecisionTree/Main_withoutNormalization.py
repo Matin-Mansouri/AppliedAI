@@ -4,6 +4,7 @@
   The classifier is implemented in the `MyDecisionTree` class, which includes methods for loading images, 
   training the model, evaluating performance, and visualizing the decision tree. The script also performs 
   hyperparameter optimization using `GridSearchCV` to find the best parameters for the decision tree.
+  in this file the feature exteracted from images do not normalized
 
   Classes and Methods:
   1. `MyDecisionTree`: A custom decision tree classifier class with the following methods:
@@ -64,7 +65,7 @@
                   labels.append(class_folder)  # Use the folder name as the label
 
           # Convert images to a numpy array and normalize(# Normalize pixel values to [0, 1])
-          images = np.array(images, dtype=np.float32) / 255.0
+          images = np.array(images)
           # print(images.shape)
 
           # Flatten the images (samples x features) to convert array to 1D array
@@ -177,7 +178,7 @@
             plt.show()
 
 
-      
+     
       def semi_supervised_learning(self, X_train, Y_train, X_unlabeled, iterations=10, top_percent=0.1):
                 """
                 Perform semi-supervised learning using a decision tree classifier.
@@ -205,7 +206,7 @@
                     # Remove high-confidence data from the unlabeled set
                     X_unlabeled = np.delete(X_unlabeled, high_conf_idx, axis=0)
 
-                return dtc  
+                return dtc   
 
 
 
@@ -281,8 +282,6 @@
     y_val_pred_semi=self_training.predict(X_val)
     # Evaluate the model on train daata
     odt.decisiontree_evaluate(Y_val,y_val_pred_semi)
-
-
 
 
 
