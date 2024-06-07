@@ -82,7 +82,9 @@ cd AppliedAI/Code/DecisionTree
 ### Run the desired script:
 
 ```bash
-python Main.py
+1- Download the dataset file from root
+2- repalce the base path  in scripts.
+3- run Main.py script in google colab  
 ```
 Replace `Main.py` with any of the other scripts (`Main_withoutNormalization.py`, `Main_withoutNormalization_optimization.py`, `Main_optimization.py`) depending on your needs.
 
