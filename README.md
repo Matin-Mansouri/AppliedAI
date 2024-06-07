@@ -12,7 +12,7 @@ In this project, we classify images into five distinct venue categories: airport
 2. **Decision Tree (Semi-Supervised)**
 3. **Convolutional Neural Network (CNN)**
 
-The Decision Tree methodologies are implemented and included in this repository, while the CNN implementation will be added in the future.
+The Decision Tree methodologies are implemented and included in this repository, while the CNN implementation will be added in the next weeks.
 
 ## Repository Structure
 
