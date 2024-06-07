@@ -45,6 +45,7 @@ The Decision Tree methodologies are implemented and included in this repository,
   - `Main_withoutNormalization.py`:  in this file the feature exteracted from images do not normalized.
   - `Main_withoutNormalization_optimization.py`: in this file the feature exteracted from images do not normalized.
      features value
+ -`Semi_supervised.py`: semisupervised classifier with Decision tree model useing iteration
 
  
 
@@ -87,6 +88,11 @@ cd AppliedAI/Code/DecisionTree
 3- run Main.py script in google colab  
 ```
 Replace `Main.py` with any of the other scripts (`Main_withoutNormalization.py`, `Main_withoutNormalization_optimization.py`, `Main_optimization.py`) depending on your needs.
+
+to run semi_suprvised.py:
+1- Download the dataset2 file from root
+2- repalce the data_dir path  in scripts.
+3- run Semi_supervised.py script in google colab  
 
 ## Project Details
 
