@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.optim as optim
 import torchvision
 import torchvision.transforms as transforms
+import os 
 from torch.utils.data import DataLoader
 
 # Define transformations with data augmentation for the training set
@@ -122,5 +123,10 @@ def evaluate_model(model, test_loader):
 
 evaluate_model(model, test_loader)
 
+# Create directory if it doesn't exist
+save_dir = '/content/drive/MyDrive/DataSet/CNN_Model'
+if not os.path.exists(save_dir):
+    os.makedirs(save_dir)
+
 # Save the trained model
-torch.save(model.state_dict(), '/content/drive/MyDrive/DataSet/CNN_Model')
+torch.save(model.state_dict(), os.path.join(save_dir, 'custom_cnn.pth'))
