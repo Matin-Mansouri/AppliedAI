@@ -1,24 +1,24 @@
   
- """
-  This script defines and utilizes a custom decision tree classifier for image classification tasks. 
-  The classifier is implemented in the `MyDecisionTree` class, which includes methods for loading images, 
-  training the model, evaluating performance, and visualizing the decision tree. The script also performs 
-  hyperparameter optimization using `GridSearchCV` to find the best parameters for the decision tree.
+  """
+    This script defines and utilizes a custom decision tree classifier for image classification tasks. 
+    The classifier is implemented in the `MyDecisionTree` class, which includes methods for loading images, 
+    training the model, evaluating performance, and visualizing the decision tree. The script also performs 
+    hyperparameter optimization using `GridSearchCV` to find the best parameters for the decision tree.
 
-  Classes and Methods:
-  1. `MyDecisionTree`: A custom decision tree classifier class with the following methods:
-      - `load_images`: Loads images from specified directories, resizes them, and converts them to numpy arrays.
-      - `plot_tree`: Plots and saves a visual representation of the decision tree using graphviz.
-      - `decisiontree_evaluate`: Evaluates and prints various performance metrics for the classifier.
-      - `decisiontree_optimization`: Optimizes decision tree hyperparameters using `GridSearchCV` and logs performance metrics.
-      - `plot_performance`: Plots performance improvement per hyperparameter combination.
+    Classes and Methods:
+    1. `MyDecisionTree`: A custom decision tree classifier class with the following methods:
+        - `load_images`: Loads images from specified directories, resizes them, and converts them to numpy arrays.
+        - `plot_tree`: Plots and saves a visual representation of the decision tree using graphviz.
+        - `decisiontree_evaluate`: Evaluates and prints various performance metrics for the classifier.
+        - `decisiontree_optimization`: Optimizes decision tree hyperparameters using `GridSearchCV` and logs performance metrics.
+        - `plot_performance`: Plots performance improvement per hyperparameter combination.
 
-  Main Script Workflow:
-  1. Define the base path to the dataset and the class names.
-  2. Create an instance of the `MyDecisionTree` class.
-  3. Load training and validation images and labels.
-  4. Perform hyperparameter optimization for `min_samples_split`, `min_samples_leaf`, and `max_depth`.
-  5. Evaluate the optimized models on the validation set and plot performance metrics.
+    Main Script Workflow:
+    1. Define the base path to the dataset and the class names.
+    2. Create an instance of the `MyDecisionTree` class.
+    3. Load training and validation images and labels.
+    4. Perform hyperparameter optimization for `min_samples_split`, `min_samples_leaf`, and `max_depth`.
+    5. Evaluate the optimized models on the validation set and plot performance metrics.
   """
   from typing_extensions import Self
   import os
@@ -281,10 +281,3 @@
     y_val_pred_semi=self_training.predict(X_val)
     # Evaluate the model on train daata
     odt.decisiontree_evaluate(Y_val,y_val_pred_semi)
-
-
-
-
-
-
-
