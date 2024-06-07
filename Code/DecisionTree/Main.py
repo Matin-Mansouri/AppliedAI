@@ -1,3 +1,25 @@
+  
+  """
+    This script defines and utilizes a custom decision tree classifier for image classification tasks. 
+    The classifier is implemented in the `MyDecisionTree` class, which includes methods for loading images, 
+    training the model, evaluating performance, and visualizing the decision tree. The script also performs 
+    hyperparameter optimization using `GridSearchCV` to find the best parameters for the decision tree.
+
+    Classes and Methods:
+    1. `MyDecisionTree`: A custom decision tree classifier class with the following methods:
+        - `load_images`: Loads images from specified directories, resizes them, and converts them to numpy arrays.
+        - `plot_tree`: Plots and saves a visual representation of the decision tree using graphviz.
+        - `decisiontree_evaluate`: Evaluates and prints various performance metrics for the classifier.
+        - `decisiontree_optimization`: Optimizes decision tree hyperparameters using `GridSearchCV` and logs performance metrics.
+        - `plot_performance`: Plots performance improvement per hyperparameter combination.
+
+    Main Script Workflow:
+    1. Define the base path to the dataset and the class names.
+    2. Create an instance of the `MyDecisionTree` class.
+    3. Load training and validation images and labels.
+    4. Perform hyperparameter optimization for `min_samples_split`, `min_samples_leaf`, and `max_depth`.
+    5. Evaluate the optimized models on the validation set and plot performance metrics.
+  """
   from typing_extensions import Self
   import os
   import numpy as np
@@ -8,11 +30,22 @@
   from sklearn.model_selection import GridSearchCV
   from sklearn.semi_supervised import SelfTrainingClassifier
   import graphviz
+  from sklearn.model_selection import train_test_split
 
   class MyDecisionTree:
 
       def load_images(self, base_path, classes, image_size=(256, 256)):
+          """
+            Load images from specified folders, resize them, and convert to numpy arrays.
 
+            Args:
+                base_path (str): Path to the base directory containing class folders.
+                classes (list): List of class names corresponding to folder names.
+                image_size (tuple): Desired size for resizing images.
+
+            Returns:
+                tuple: Flattened images array and corresponding labels.
+          """
           # Initialize lists to store images and labels
           images = []
           labels = []
@@ -47,6 +80,14 @@
           return images_flattened, labels
 
       def plot_tree(self, dtc, feature_names,classes):
+          """
+            Plot and save a decision tree using graphviz.
+
+            Args:
+                dtc (DecisionTreeClassifier): Trained decision tree classifier.
+                feature_names (list): List of feature names (optional).
+                classes (list): List of class names.
+          """
           # print a nicer tree using graphviz
           dot_data = tree.export_graphviz(dtc, out_file=None,
                                           feature_names=feature_names,
@@ -56,6 +97,13 @@
           graph.render("DecisionTree")  # the DecisionTree will save in a pdf file
 
       def decisiontree_evaluate(self, y_true, y_pred):
+          """
+                Evaluate and print various performance metrics for a classifier.
+
+                Args:
+                    y_true (array): True labels.
+                    y_pred (array): Predicted labels.
+          """
 
           accuracy = accuracy_score(y_true, y_pred)
           precision = precision_score(y_true, y_pred, average='macro')
@@ -129,24 +177,35 @@
             plt.show()
 
 
-      def semi_supervised_self_training(self,X, y, labeled_portion=0.2,
-                                  threshold=0.9, criterion='threshold',max_depth=5, min_samples_split=10 ,min_samples_leaf=5
-                                 ):
+      
+      def semi_supervised_learning(self, X_train, Y_train, X_unlabeled, iterations=10, top_percent=0.1):
+                """
+                Perform semi-supervised learning using a decision tree classifier.
+                """
+                for iteration in range(iterations):
+                    print(f"Iteration {iteration + 1}/{iterations}")
 
-            # Separate labeled and unlabeled data
-            num_unlabeled = int(len(y) * (1 - labeled_portion))
-            unlabeled_indices = np.random.choice(np.arange(len(y)), num_unlabeled, replace=False)
-            Y_semi = np.copy(y)
-            Y_semi[unlabeled_indices] = -1
+                    # Train the decision tree on the current labeled data
+                    dtc = tree.DecisionTreeClassifier(criterion="entropy")
+                    dtc.fit(X_train, Y_train)
 
-            # Create the SelfTrainingClassifier with a DecisionTreeClassifier base classifier
-            base_dtc = tree.DecisionTreeClassifier(criterion="entropy", max_depth=max_depth, min_samples_split=min_samples_split ,min_samples_leaf=min_samples_leaf)
-            self_training_clf = SelfTrainingClassifier(base_dtc, criterion=criterion, threshold=threshold)
+                    # Predict probabilities on the unlabeled data
+                    probs = dtc.predict_proba(X_unlabeled)
+                    preds = dtc.predict(X_unlabeled)
 
-            # Fit the self-training classifier on the semi-labeled data
-            self_training_clf.fit(X, Y_semi)
+                    # Select high-confidence predictions (top `top_percent` percent)
+                    max_probs = np.max(probs, axis=1)
+                    threshold = np.percentile(max_probs, 100 * (1 - top_percent))
+                    high_conf_idx = np.where(max_probs >= threshold)[0]
 
-            return self_training_clf    
+                    # Add high-confidence pseudo-labeled data to the training set
+                    X_train = np.vstack((X_train, X_unlabeled[high_conf_idx]))
+                    Y_train = np.hstack((Y_train, preds[high_conf_idx]))
+
+                    # Remove high-confidence data from the unlabeled set
+                    X_unlabeled = np.delete(X_unlabeled, high_conf_idx, axis=0)
+
+                return dtc  
 
 
 
@@ -173,53 +232,52 @@
     dtc = tree.DecisionTreeClassifier(criterion="entropy")
     dtc.fit(X_train, Y_train)
 
-
+    print("Plot the decision tree with criterion='entropy' and defult hyperparameter values")
     # Plot the decision tree
     odt.plot_tree(dtc, feature_names,classes)
 
+    print("evaluation prediction on tarin and validation data")
     # Make predictions on the train set
     y_train_pred = dtc.predict(X_train)
 
     # Make predictions on the val set
     y_val_pred = dtc.predict(X_val)
 
-    # Evaluate the model on train daata
+    # Evaluate the model on train data
     odt.decisiontree_evaluate(Y_train,y_train_pred)
 
     # Evaluate the model on validation data
     odt.decisiontree_evaluate(Y_val,y_val_pred)
 
-    # at this point execte the main_optimization to gain best hyperparameter value among selected range values.
+    # at this point execte the main_optimization to gain best hyperparameter values among selected range values.
     #  we exeute and the result for three hyperparameter including
     # max_depth:[4,7,8,10,12,14], 'min_samples_split': [4,8,11,13], 'min_samples_leaf': [15,20,30]
-
     # then   # Train Decision Tree Classifier with best selected hyperparameters
-    best_model = tree.DecisionTreeClassifier(criterion="entropy",max_depth=5, min_samples_split=10 ,min_samples_leaf=5)
+
+    print("run decision tree classifier with criterion='entropy' and best hyperparameter values, including max_depth=10, min_samples_split=20 ,min_samples_leaf=13")
+    best_model = tree.DecisionTreeClassifier(criterion="entropy",max_depth=10, min_samples_split=20 ,min_samples_leaf=13)
     best_model.fit(X_train, Y_train)
     # Make predictions on the train set
     y_train_pred = best_model.predict(X_train)
     # Make predictions on the val set
     y_val_pred_best = best_model.predict(X_val)
+    print("evaluation prediction on tarin and validation data")
     # Evaluate the model on train daata
     odt.decisiontree_evaluate(Y_val,y_val_pred_best)
     # Evaluate the model on validation data
     odt.decisiontree_evaluate(Y_train,y_val_pred_best)
 
+    print("run semi-supervised decision tree classifier with criterion='entropy' and best hyperparameter values, including max_depth=10, min_samples_split=20 ,min_samples_leaf=13")
+  
     # Train Decision Tree Classifier (semi_supervised ) with best selected hyperparameters
     min_samples_leaf = [4,8,11,13]
     min_samples_split = [15,20,30]
     max_depth = [4,7,8,10,12,14]
     self_training=odt.semi_supervised_self_training(X_train, Y_train, labeled_portion=0.2,
-                                    threshold=0.9, criterion='threshold',max_depth=5, min_samples_split=10 ,min_samples_leaf=5)
+                                    threshold=0.9, criterion='threshold',max_depth=10, min_samples_split=20 ,min_samples_leaf=13)
     
     self_training.fit(X_train, Y_train)
+    print("evaluation prediction on  validation data")
     y_val_pred_semi=self_training.predict(X_val)
     # Evaluate the model on train daata
     odt.decisiontree_evaluate(Y_val,y_val_pred_semi)
-
-
-
-
-
-
-

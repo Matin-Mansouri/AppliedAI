@@ -1,3 +1,20 @@
+  """
+      The script performs hyperparameter optimization using GridSearchCV to find the best parameters for the decision tree.
+      Classes and Methods:
+      1. MyDecisionTree: A custom decision tree classifier class with the following methods:
+          - load_images: Loads images from specified directories, resizes them, and converts them to numpy arrays.
+          - plot_tree: Plots and saves a visual representation of the decision tree using graphviz.
+          - decisiontree_evaluate: Evaluates and prints various performance metrics for the classifier.
+          - decisiontree_optimization: Optimizes decision tree hyperparameters using GridSearchCV and logs performance metrics.
+          - plot_performance: Plots performance improvement per hyperparameter combination.
+
+      Main Script Workflow:
+      1. Define the base path to the dataset and the class names.
+      2. Create an instance of the MyDecisionTree class.
+      3. Load training and validation images and labels.
+      4. Perform hyperparameter optimization for min_samples_split, min_samples_leaf, and max_depth.
+      5. Evaluate the optimized models on the validation set and plot performance metrics.
+  """
   from typing_extensions import Self
   import os
   import numpy as np
@@ -12,7 +29,17 @@
   class MyDecisionTree:
 
       def load_images(self, base_path, classes, image_size=(256, 256)):
+          """
+            Load images from specified folders, resize them, and convert to numpy arrays.
 
+            Args:
+                base_path (str): Path to the base directory containing class folders.
+                classes (list): List of class names corresponding to folder names.
+                image_size (tuple): Desired size for resizing images.
+
+            Returns:
+                tuple: Flattened images array and corresponding labels.
+          """
           # Initialize lists to store images and labels
           images = []
           labels = []
@@ -47,6 +74,15 @@
           return images_flattened, labels
 
       def plot_tree(self, dtc, feature_names,classes):
+          
+          """
+            Plot and save a decision tree using graphviz.
+
+            Args:
+                dtc (DecisionTreeClassifier): Trained decision tree classifier.
+                feature_names (list): List of feature names (optional).
+                classes (list): List of class names.
+          """
           # print a nicer tree using graphviz
          
           dot_data = tree.export_graphviz(dtc, out_file=None,
@@ -57,6 +93,13 @@
           graph.render("DecisionTree")  # the DecisionTree will save in a pdf file
 
       def decisiontree_evaluate(self, y_true, y_pred):
+          """
+                Evaluate and print various performance metrics for a classifier.
+
+                Args:
+                    y_true (array): True labels.
+                    y_pred (array): Predicted labels.
+          """
 
           accuracy = accuracy_score(y_true, y_pred)
           precision = precision_score(y_true, y_pred, average='macro')
@@ -80,12 +123,15 @@
         """
         Optimize decision tree hyperparameters using GridSearchCV and log performance metrics.
 
-        :param X_train: Training features.
-        :param Y_train: Training labels.
-        :param X_val: Validation features.
-        :param Y_val: Validation labels.
-        :param param_grid: Dictionary with parameters names (string) as keys and lists of parameter settings to try as values.
-        :return: Best model after grid search, performance log.
+        Args:
+            X_train (array): Training features.
+            Y_train (array): Training labels.
+            X_val (array): Validation features.
+            Y_val (array): Validation labels.
+            param_grid (dict): Dictionary with parameters names (string) as keys and lists of parameter settings to try as values.
+
+        Returns:
+            tuple: Best model after grid search, performance log.
         """
         dtc = tree.DecisionTreeClassifier(criterion="entropy")
         grid_search = GridSearchCV(estimator=dtc, param_grid=param_grid, cv=5, return_train_score=True)
@@ -148,7 +194,7 @@
     X_val,Y_val =odt.load_images(os.path.join(base_path, "val"),classes)
 
 
-
+    print("run decisiontree_optimization function to find best accuracy among 'min_samples_split': [15,20,30]")
     # Hyperparameter optimization min_samples_split
     best_model, performance_log = odt.decisiontree_optimization(X_train, Y_train, X_val, Y_val, {'min_samples_split': [15,20,30]})
 
@@ -158,10 +204,11 @@
     print("Optimized Model Evaluation on Validation Set:")
     odt.decisiontree_evaluate(Y_val, y_val_pred_best)
 
+    print("Plot plot_performance")
     # Plot performance comparison
     odt.plot_performance(performance_log)
 
-
+    print("run decisiontree_optimization function to find best accuracy among 'min_samples_leaf': [15,20,30]")
     # Hyperparameter optimization min_samples_leaf
     best_model, performance_log = odt.decisiontree_optimization(X_train, Y_train, X_val, Y_val, {'min_samples_leaf': [15,20,30]})
 
@@ -171,9 +218,11 @@
     print("Optimized Model Evaluation on Validation Set:")
     odt.decisiontree_evaluate(Y_val, y_val_pred_best)
 
+    print("Plot plot_performance")
     # Plot performance comparison
     odt.plot_performance(performance_log)
 
+    print("run decisiontree_optimization function to find best accuracy among 'max_Depth': [15,20,30]}")
     # Hyperparameter optimization
     best_model, performance_log = odt.decisiontree_optimization(X_train, Y_train, X_val, Y_val, {'max_Depth': [15,20,30]})
 
@@ -183,8 +232,6 @@
     print("Optimized Model Evaluation on Validation Set:")
     odt.decisiontree_evaluate(Y_val, y_val_pred_best)
 
+    print("Plot plot_performance")
     # Plot performance comparison
     odt.plot_performance(performance_log)
-
-
-

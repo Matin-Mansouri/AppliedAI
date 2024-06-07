@@ -1,103 +1,110 @@
+# AppliedAI
 
-# Decision Tree supervised
+This repository contains the code and methodologies for our course project on venue classification using image data. We implemented two different approaches: Decision Tree (supervised), Decision Tree (semi-supervised), and plan to implement Convolutional Neural Networks (CNN). This README provides an overview of the project, the structure of the repository, and instructions on how to run the code.
 
-import os
-import numpy as np
-from sklearn import tree
-from sklearn.preprocessing import LabelEncoder
-from PIL import Image
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, classification_report
-from sklearn.model_selection import GridSearchCV
+## Project Overview
 
-# Load Images Function to load iamges from Drive and put the in array
-def load_images(base_path, classes, image_size):
+In this project, we classify images into five distinct venue categories: airport terminal, movie theater, market, museum, and restaurant using supervied and semi-supervised decisiontree. we examine differnt values for three hyperparameters including max_depth, min_sample_split and min_sample_leaf.The dataset used is a subset of the Places365Standard dataset, consisting of 2,500 images divided into training, validation, and test sets. 
 
-  # Initialize lists to store images and labels
- images = []
- labels = []
- for class_folder in classes:
-    folder_path = os.path.join(base_path, class_folder)
-    image_files = [f for f in os.listdir(folder_path) if f.endswith('.jpg')]
+### Methodologies
 
-    for image_file in image_files:
-        image_path = os.path.join(folder_path, image_file)
-        image = Image.open(image_path).convert('RGB')
-        image = image.resize(image_size)
-        image_array = np.array(image)
-        #print(image_array.shape)
-        images.append(image)
-        labels.append(class_folder)  # Use the folder name as the label
+1. **Decision Tree (Supervised)**
+2. **Decision Tree (Semi-Supervised)**
+3. **Convolutional Neural Network (CNN)**
 
+The Decision Tree methodologies are implemented and included in this repository, while the CNN implementation will be added in the next weeks.
 
- # Convert images to a numpy array and normalize(# Normalize pixel values to [0, 1])
- images = np.array(images, dtype=np.float32) / 255.0
- #print(images.shape)
+## Repository Structure
 
- # Flatten the images (samples x features) to conver array to 1D array
- images_flattened = images.reshape(len(images), -1)
+- **Code/DecisionTree**
+  - `Main.py`: Main script for the Decision Tree classifier(supervised and sem-supervised).
+  - This script defines and utilizes a custom decision tree classifier for image classification tasks. 
+  The classifier is implemented in the `MyDecisionTree` class, which includes methods for loading images, 
+  training the model, evaluating performance, and visualizing the decision tree. The script also performs 
+  hyperparameter optimization using `GridSearchCV` to find the best parameters for the decision tree.
 
+  Classes and Methods:
+  1. `MyDecisionTree`: A custom decision tree classifier class with the following methods:
+      - `load_images`: Loads images from specified directories, resizes them, and converts them to numpy arrays.
+      - `plot_tree`: Plots and saves a visual representation of the decision tree using graphviz.
+      - `decisiontree_evaluate`: Evaluates and prints various performance metrics for the classifier.
+      - `decisiontree_optimization`: Optimizes decision tree hyperparameters using `GridSearchCV` and logs performance metrics.
+      - `plot_performance`: Plots performance improvement per hyperparameter combination.
+      - `semi_supervised_learning`: Perform semi-supervised learning using a decision tree classifier.
 
- # Encode class lables to numerical values
- label_encoder = LabelEncoder()
- labels = label_encoder.fit_transform(labels)
+  Main Script Workflow:
+  1. Define the base path to the dataset and the class names.
+  2. Create an instance of the `MyDecisionTree` class.
+  3. Load training and validation images and labels.
+  4. Perform hyperparameter optimization for `min_samples_split`, `min_samples_leaf`, and `max_depth`.
+  5. Evaluate the optimized models on the validation set and plot performance metrics.
+   - `Main_optimization.py`: this script defines and utilizes a custom decision tree classifier for image classification tasks. 
+  The classifier is implemented in the `MyDecisionTree` class, which includes methods for loading images, 
+  training the model, evaluating performance, and visualizing the decision tree. The script also performs 
+  hyperparameter optimization using `GridSearchCV` to find the best parameters for the decision tree.
+  - `Main_withoutNormalization.py`:  in this file the feature exteracted from images do not normalized.
+  - `Main_withoutNormalization_optimization.py`: in this file the feature exteracted from images do not normalized.
+     features value
+ -`Semi_supervised.py`: semisupervised classifier with Decision tree model useing iteration
 
- # return an array of features(image pixele)
- # each row of this array present exteracted featurs from one train iamges
- # and labels array pressent and array of class lables
- return images_flattened, labels
+ 
 
-# Define paths and classes
-base_path = "/content/drive/MyDrive/ColabNotebooks/DataSet/"  # Update this with the correct path
-classes = ["airport_terminal", "market", "movie_theater", "museum", "restaurant"]
-image_size = (256, 256)
-X_train = []
-Y_train = []
+## Getting Started
 
+### Prerequisites
 
-# Load  train images and labels
-X_train,Y_train =load_images(os.path.join(base_path,"train"),classes,image_size)
+- Python 3.x
+- Scikit-learn
+- Numpy
+- Pandas
 
-# Load  Val images and labels
-X_val = []
-Y_val = []
-X_val,Y_val =load_images(os.path.join(base_path, "val"),classes,image_size)
+### Installation
 
-# class lable Encoding
-le = LabelEncoder()
-lable_classes = le.fit_transform(classes)
+Clone the repository:
 
+```bash
+git clone https://github.com/yourusername/AppliedAI.git
+cd AppliedAI
+```
 
-# Train Decision Tree Classifier
-dtc = tree.DecisionTreeClassifier(criterion="entropy")
-dtc.fit(X_train, Y_train)
-#tree.plot_tree(dtc)
+### Install the required packages:
+```bash
+pip install -r requirements.txt
+```
 
-# Define the parameter grid
-param_grid = {
-    'max_depth': [5, 10, 14]
-}
+## Running the Code
 
-# Instantiate GridSearchCV
-grid_search = GridSearchCV(estimator=dtc, param_grid=param_grid, cv=5)
+### Navigate to the appropriate directory:
 
-# Fit the GridSearchCV object to the training data
-grid_search.fit(X_train, Y_train)
+```bash
+cd AppliedAI/Code/DecisionTree
+```
 
-# Print the best hyperparameters found
-print("Best hyperparameters:", grid_search.best_params_)
+### Run the desired script:
 
-# Get the best model
-best_model = grid_search.best_estimator_
+```bash
+1- Download the dataset file from root
+2- repalce the base path  in scripts.
+3- run Main.py script in google colab  
+```
+Replace `Main.py` with any of the other scripts (`Main_withoutNormalization.py`, `Main_withoutNormalization_optimization.py`, `Main_optimization.py`) depending on your needs.
 
-# Evaluate the best model on the validation data
-validation_accuracy = best_model.score(X_val, Y_val)
-print("Validation Accuracy with best model:", validation_accuracy)
+to run semi_suprvised.py:
+1- Download the dataset2 file from root
+2- repalce the data_dir path  in scripts.
+3- run Semi_supervised.py script in google colab  
 
+## Project Details
 
+The detailed methodologies, dataset preparation, and results are documented in the project report. Below is a brief overview:
 
+- **Database**: The dataset is a part of the publicly available Places365Standard dataset, with images resized to 256x256 pixels and normalized.
+- **Model**: Decision Tree Classifier from the Scikit-learn library with hyperparameter tuning using GridSearchCV.
+- **Results**: Performance metrics including accuracy, precision, recall, and F1 score and confusion matrix are evaluated for both training and validation sets.
 
+## Authors and Contacts
 
-
-
-
+- Matin Mansouri: [matin.mansouri23@gmail.com](mailto:matin.mansouri23@gmail.com)
+- Zahed Ebrahimi: [zahedebrahimi89@gmail.com](mailto:zahedebrahimi89@gmail.com)
+- Samane Vazrrian: [samane.vazirian@gmail.com](mailto:samane.vazirian@gmail.com)
 
