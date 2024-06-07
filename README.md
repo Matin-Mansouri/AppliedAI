@@ -1,10 +1,10 @@
 # AppliedAI
 
-This repository contains the code and methodologies for our course project on venue classification using image data. We implemented three different approaches: Decision Tree (supervised), Decision Tree (semi-supervised), and Convolutional Neural Networks (CNN). This README provides an overview of the project, the structure of the repository, and instructions on how to run the code.
+This repository contains the code and methodologies for our course project on venue classification using image data. We implemented two different approaches: Decision Tree (supervised), Decision Tree (semi-supervised), and plan to implement Convolutional Neural Networks (CNN). This README provides an overview of the project, the structure of the repository, and instructions on how to run the code.
 
 ## Project Overview
 
-In this project, we classify images into five distinct venue categories: airport terminal, movie theater, market, museum, and restaurant. The dataset used is a subset of the Places365Standard dataset, consisting of over 2,500 images divided into training, validation, and test sets.
+In this project, we classify images into five distinct venue categories: airport terminal, movie theater, market, museum, and restaurant using supervied and semi-supervised decisiontree. we examine differnt values for three hyperparameters including max_depth, min_sample_split and min_sample_leaf.The dataset used is a subset of the Places365Standard dataset, consisting of 2,500 images divided into training, validation, and test sets. 
 
 ### Methodologies
 
@@ -17,10 +17,11 @@ The Decision Tree methodologies are implemented and included in this repository,
 ## Repository Structure
 
 - **Code/DecisionTree**
-  - `Main.py`: Main script for the Decision Tree classifier with normalization.
-  - `Main_withoutNormalization.py`: Main script for the Decision Tree classifier without normalization.
-  - `Main_withoutNormalization_optimization.py`: Script for the Decision Tree classifier without normalization and with hyperparameter optimization.
-  - `Main_optimization.py`: Script for the Decision Tree classifier with normalization and hyperparameter optimization.
+  - `Main.py`: Main script for the Decision Tree classifier(supervised and sem-supervised).
+  - `Main_withoutNormalization.py`: Main script for the Decision Tree classifier(supervised and sem-supervised) without normalization.
+  - `Main_withoutNormalization_optimization.py`:Script for examine hyperparameter values in order to optimize model without Normalization on 
+     features value
+  - `Main_optimization.py`: Script for examine hyperparameter values inorderto optimize model.
 
 ## Getting Started
 
@@ -66,7 +67,7 @@ The detailed methodologies, dataset preparation, and results are documented in t
 
 - **Database**: The dataset is a part of the publicly available Places365Standard dataset, with images resized to 256x256 pixels and normalized.
 - **Model**: Decision Tree Classifier from the Scikit-learn library with hyperparameter tuning using GridSearchCV.
-- **Results**: Performance metrics including accuracy, precision, recall, and F1 score are evaluated for both training and validation sets.
+- **Results**: Performance metrics including accuracy, precision, recall, and F1 score and confusion matrix are evaluated for both training and validation sets.
 
 ## Authors and Contacts
 
