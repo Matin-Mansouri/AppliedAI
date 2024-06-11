@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 train_transform = transforms.Compose([
     transforms.RandomHorizontalFlip(),
     transforms.RandomRotation(10),
-    transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.2),
+    #transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.2),
     transforms.ToTensor(),
     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
 ])
@@ -67,7 +67,7 @@ model = ImprovedCNN()
 
 # Define loss function and optimizer
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters(), lr=0.01)  
+optimizer = optim.Adam(model.parameters(), lr=0.0001)  # Reduced learning rate for better performance
 
 # Learning rate scheduler
 scheduler = StepLR(optimizer, step_size=7, gamma=0.1)

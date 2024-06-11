@@ -67,7 +67,7 @@ model = ImprovedCNN()
 
 # Define loss function and optimizer
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters(), lr=0.01)  
+optimizer = optim.Adam(model.parameters(), lr=0.0001)  # Reduced learning rate for better performance
 
 # Learning rate scheduler
 scheduler = StepLR(optimizer, step_size=7, gamma=0.1)

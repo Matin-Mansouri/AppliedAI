@@ -42,19 +42,23 @@ class ImprovedCNN(nn.Module):
         self.conv4 = nn.Conv2d(128, 256, kernel_size=3, padding=1)
         self.pool = nn.MaxPool2d(kernel_size=2, stride=2, padding=0)
         self.dropout = nn.Dropout(0.5)
-        self.batch_norm1 = nn.BatchNorm2d(32)
-        self.batch_norm2 = nn.BatchNorm2d(64)
-        self.batch_norm3 = nn.BatchNorm2d(128)
-        self.batch_norm4 = nn.BatchNorm2d(256)
+        #self.batch_norm1 = nn.BatchNorm2d(32)
+        #self.batch_norm2 = nn.BatchNorm2d(64)
+        #self.batch_norm3 = nn.BatchNorm2d(128)
+        #self.batch_norm4 = nn.BatchNorm2d(256)
         self.fc1 = nn.Linear(256 * 16 * 16, 512)
         self.fc2 = nn.Linear(512, 128)
         self.fc3 = nn.Linear(128, 5)  # 5 classes
 
     def forward(self, x):
-        x = self.pool(self.batch_norm1(torch.relu(self.conv1(x))))
-        x = self.pool(self.batch_norm2(torch.relu(self.conv2(x))))
-        x = self.pool(self.batch_norm3(torch.relu(self.conv3(x))))
-        x = self.pool(self.batch_norm4(torch.relu(self.conv4(x))))
+        #x = self.pool(self.batch_norm1(torch.relu(self.conv1(x))))
+        #x = self.pool(self.batch_norm2(torch.relu(self.conv2(x))))
+        #x = self.pool(self.batch_norm3(torch.relu(self.conv3(x))))
+        #x = self.pool(self.batch_norm4(torch.relu(self.conv4(x))))
+        x = self.pool(torch.relu(self.conv1(x)))
+        x = self.pool(torch.relu(self.conv2(x)))
+        x = self.pool(torch.relu(self.conv3(x)))
+        x = self.pool(torch.relu(self.conv4(x)))
         x = x.view(-1, 256 * 16 * 16)
         x = torch.relu(self.fc1(x))
         x = self.dropout(x)
@@ -67,7 +71,7 @@ model = ImprovedCNN()
 
 # Define loss function and optimizer
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters(), lr=0.01)  
+optimizer = optim.Adam(model.parameters(), lr=0.0001)
 
 # Learning rate scheduler
 scheduler = StepLR(optimizer, step_size=7, gamma=0.1)

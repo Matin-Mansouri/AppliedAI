@@ -51,14 +51,14 @@ class ImprovedCNN(nn.Module):
         self.fc3 = nn.Linear(128, 5)  # 5 classes
 
     def forward(self, x):
-        x = self.pool(self.batch_norm1(torch.relu(self.conv1(x))))
-        x = self.pool(self.batch_norm2(torch.relu(self.conv2(x))))
-        x = self.pool(self.batch_norm3(torch.relu(self.conv3(x))))
-        x = self.pool(self.batch_norm4(torch.relu(self.conv4(x))))
+        x = self.pool(self.batch_norm1(torch.leaky_relu(self.conv1(x))))
+        x = self.pool(self.batch_norm2(torch.leaky_relu(self.conv2(x))))
+        x = self.pool(self.batch_norm3(torch.leaky_relu(self.conv3(x))))
+        x = self.pool(self.batch_norm4(torch.leaky_relu(self.conv4(x))))
         x = x.view(-1, 256 * 16 * 16)
-        x = torch.relu(self.fc1(x))
+        x = torch.leaky_relu(self.fc1(x))
         x = self.dropout(x)
-        x = torch.relu(self.fc2(x))
+        x = torch.leaky_relu(self.fc2(x))
         x = self.fc3(x)
         return x
 
@@ -67,7 +67,7 @@ model = ImprovedCNN()
 
 # Define loss function and optimizer
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters(), lr=0.01)  
+optimizer = optim.Adam(model.parameters(), lr=0.0001)  # Reduced learning rate for better performance
 
 # Learning rate scheduler
 scheduler = StepLR(optimizer, step_size=7, gamma=0.1)
