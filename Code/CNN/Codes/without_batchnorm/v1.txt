@@ -1,0 +1,83 @@
+Epoch 1/25, Train Loss: 1.5796, Val Loss: 1.6219, Val Accuracy: 26.00%, Val Precision: 0.0902, Val Recall: 0.2600, Val F1 Score: 0.1331
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch 2/25, Train Loss: 1.5169, Val Loss: 1.5223, Val Accuracy: 30.29%, Val Precision: 0.1471, Val Recall: 0.3029, Val F1 Score: 0.1895
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch 3/25, Train Loss: 1.4083, Val Loss: 1.5100, Val Accuracy: 24.86%, Val Precision: 0.1841, Val Recall: 0.2486, Val F1 Score: 0.1742
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch 4/25, Train Loss: 1.3991, Val Loss: 1.4944, Val Accuracy: 28.29%, Val Precision: 0.2206, Val Recall: 0.2829, Val F1 Score: 0.2141
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch 5/25, Train Loss: 1.3746, Val Loss: 1.4514, Val Accuracy: 28.57%, Val Precision: 0.1631, Val Recall: 0.2857, Val F1 Score: 0.1888
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch 6/25, Train Loss: 1.3935, Val Loss: 1.4807, Val Accuracy: 34.29%, Val Precision: 0.3037, Val Recall: 0.3429, Val F1 Score: 0.2619
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch 7/25, Train Loss: 1.3560, Val Loss: 1.4025, Val Accuracy: 38.86%, Val Precision: 0.3468, Val Recall: 0.3886, Val F1 Score: 0.3345
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch 8/25, Train Loss: 1.3067, Val Loss: 1.4050, Val Accuracy: 38.29%, Val Precision: 0.3337, Val Recall: 0.3829, Val F1 Score: 0.3275
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch 9/25, Train Loss: 1.3127, Val Loss: 1.4081, Val Accuracy: 38.86%, Val Precision: 0.3479, Val Recall: 0.3886, Val F1 Score: 0.3359
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch 10/25, Train Loss: 1.2941, Val Loss: 1.4177, Val Accuracy: 36.29%, Val Precision: 0.3467, Val Recall: 0.3629, Val F1 Score: 0.3015
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch 11/25, Train Loss: 1.3025, Val Loss: 1.4207, Val Accuracy: 36.29%, Val Precision: 0.3471, Val Recall: 0.3629, Val F1 Score: 0.3029
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch 12/25, Train Loss: 1.3010, Val Loss: 1.4227, Val Accuracy: 36.57%, Val Precision: 0.3515, Val Recall: 0.3657, Val F1 Score: 0.3114
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch 13/25, Train Loss: 1.2778, Val Loss: 1.4230, Val Accuracy: 36.57%, Val Precision: 0.3473, Val Recall: 0.3657, Val F1 Score: 0.3101
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch 14/25, Train Loss: 1.2898, Val Loss: 1.4139, Val Accuracy: 37.71%, Val Precision: 0.3395, Val Recall: 0.3771, Val F1 Score: 0.3227
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch 15/25, Train Loss: 1.2946, Val Loss: 1.4127, Val Accuracy: 38.29%, Val Precision: 0.3476, Val Recall: 0.3829, Val F1 Score: 0.3305
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch 16/25, Train Loss: 1.2895, Val Loss: 1.4124, Val Accuracy: 37.71%, Val Precision: 0.3383, Val Recall: 0.3771, Val F1 Score: 0.3239
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch 17/25, Train Loss: 1.2876, Val Loss: 1.4124, Val Accuracy: 37.43%, Val Precision: 0.3385, Val Recall: 0.3743, Val F1 Score: 0.3224
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch 18/25, Train Loss: 1.2922, Val Loss: 1.4126, Val Accuracy: 37.71%, Val Precision: 0.3378, Val Recall: 0.3771, Val F1 Score: 0.3219
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch 19/25, Train Loss: 1.2815, Val Loss: 1.4119, Val Accuracy: 37.14%, Val Precision: 0.3346, Val Recall: 0.3714, Val F1 Score: 0.3174
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch 20/25, Train Loss: 1.2962, Val Loss: 1.4116, Val Accuracy: 37.71%, Val Precision: 0.3389, Val Recall: 0.3771, Val F1 Score: 0.3236
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch 21/25, Train Loss: 1.2940, Val Loss: 1.4122, Val Accuracy: 37.71%, Val Precision: 0.3393, Val Recall: 0.3771, Val F1 Score: 0.3222
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch 22/25, Train Loss: 1.3004, Val Loss: 1.4123, Val Accuracy: 37.71%, Val Precision: 0.3393, Val Recall: 0.3771, Val F1 Score: 0.3222
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch 23/25, Train Loss: 1.2986, Val Loss: 1.4121, Val Accuracy: 37.71%, Val Precision: 0.3393, Val Recall: 0.3771, Val F1 Score: 0.3222
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch 24/25, Train Loss: 1.2995, Val Loss: 1.4120, Val Accuracy: 37.71%, Val Precision: 0.3393, Val Recall: 0.3771, Val F1 Score: 0.3222
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch 25/25, Train Loss: 1.2948, Val Loss: 1.4120, Val Accuracy: 37.71%, Val Precision: 0.3382, Val Recall: 0.3771, Val F1 Score: 0.3216
+
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Test Accuracy: 42.60%, Test Precision: 0.3388, Test Recall: 0.4260, Test F1 Score: 0.3558
+Confusion Matrix:
+[[33 38  8 21  0]
+ [16 78  6  0  0]
+ [ 3 13 83  1  0]
+ [17 39 25 19  0]
+ [15 54 20 11  0]]

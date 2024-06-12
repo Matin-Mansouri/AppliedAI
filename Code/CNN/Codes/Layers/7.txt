@@ -1,0 +1,33 @@
+Epoch 1/25, Train Loss: 1.3482, Val Loss: 2.4694, Val Accuracy: 20.00%, Val Precision: 0.0400, Val Recall: 0.2000, Val F1 Score: 0.0667
+Epoch 2/25, Train Loss: 1.1465, Val Loss: 1.4759, Val Accuracy: 39.75%, Val Precision: 0.4760, Val Recall: 0.3975, Val F1 Score: 0.3350
+Epoch 3/25, Train Loss: 1.1007, Val Loss: 1.0709, Val Accuracy: 60.75%, Val Precision: 0.6165, Val Recall: 0.6075, Val F1 Score: 0.5920
+Epoch 4/25, Train Loss: 1.0187, Val Loss: 0.9527, Val Accuracy: 65.25%, Val Precision: 0.6718, Val Recall: 0.6525, Val F1 Score: 0.6526
+Epoch 5/25, Train Loss: 0.9674, Val Loss: 1.0614, Val Accuracy: 61.25%, Val Precision: 0.6234, Val Recall: 0.6125, Val F1 Score: 0.5999
+Epoch 6/25, Train Loss: 0.9090, Val Loss: 0.8932, Val Accuracy: 66.00%, Val Precision: 0.6688, Val Recall: 0.6600, Val F1 Score: 0.6452
+Epoch 7/25, Train Loss: 0.8159, Val Loss: 0.9524, Val Accuracy: 66.25%, Val Precision: 0.6949, Val Recall: 0.6625, Val F1 Score: 0.6626
+Epoch 8/25, Train Loss: 0.7210, Val Loss: 0.7955, Val Accuracy: 71.00%, Val Precision: 0.7203, Val Recall: 0.7100, Val F1 Score: 0.7108
+Epoch 9/25, Train Loss: 0.6589, Val Loss: 0.7960, Val Accuracy: 69.75%, Val Precision: 0.6998, Val Recall: 0.6975, Val F1 Score: 0.6960
+Epoch 10/25, Train Loss: 0.6067, Val Loss: 0.7755, Val Accuracy: 72.75%, Val Precision: 0.7323, Val Recall: 0.7275, Val F1 Score: 0.7287
+Epoch 11/25, Train Loss: 0.5851, Val Loss: 0.7718, Val Accuracy: 71.75%, Val Precision: 0.7256, Val Recall: 0.7175, Val F1 Score: 0.7193
+Epoch 12/25, Train Loss: 0.5789, Val Loss: 0.7602, Val Accuracy: 70.75%, Val Precision: 0.7082, Val Recall: 0.7075, Val F1 Score: 0.7078
+Epoch 13/25, Train Loss: 0.5571, Val Loss: 0.7665, Val Accuracy: 73.00%, Val Precision: 0.7390, Val Recall: 0.7300, Val F1 Score: 0.7314
+Epoch 14/25, Train Loss: 0.5282, Val Loss: 0.7811, Val Accuracy: 71.50%, Val Precision: 0.7208, Val Recall: 0.7150, Val F1 Score: 0.7159
+Epoch 15/25, Train Loss: 0.5088, Val Loss: 0.7760, Val Accuracy: 72.00%, Val Precision: 0.7262, Val Recall: 0.7200, Val F1 Score: 0.7207
+Epoch 16/25, Train Loss: 0.5095, Val Loss: 0.7677, Val Accuracy: 71.75%, Val Precision: 0.7233, Val Recall: 0.7175, Val F1 Score: 0.7186
+Epoch 17/25, Train Loss: 0.4987, Val Loss: 0.7663, Val Accuracy: 72.25%, Val Precision: 0.7302, Val Recall: 0.7225, Val F1 Score: 0.7242
+Epoch 18/25, Train Loss: 0.4865, Val Loss: 0.7668, Val Accuracy: 72.00%, Val Precision: 0.7312, Val Recall: 0.7200, Val F1 Score: 0.7231
+Epoch 19/25, Train Loss: 0.4758, Val Loss: 0.7689, Val Accuracy: 71.75%, Val Precision: 0.7261, Val Recall: 0.7175, Val F1 Score: 0.7194
+Epoch 20/25, Train Loss: 0.4865, Val Loss: 0.7667, Val Accuracy: 71.25%, Val Precision: 0.7198, Val Recall: 0.7125, Val F1 Score: 0.7142
+Epoch 21/25, Train Loss: 0.4623, Val Loss: 0.7636, Val Accuracy: 71.25%, Val Precision: 0.7211, Val Recall: 0.7125, Val F1 Score: 0.7148
+Epoch 22/25, Train Loss: 0.4750, Val Loss: 0.7670, Val Accuracy: 72.00%, Val Precision: 0.7292, Val Recall: 0.7200, Val F1 Score: 0.7218
+Epoch 23/25, Train Loss: 0.4783, Val Loss: 0.7662, Val Accuracy: 71.75%, Val Precision: 0.7258, Val Recall: 0.7175, Val F1 Score: 0.7193
+Epoch 24/25, Train Loss: 0.4917, Val Loss: 0.7657, Val Accuracy: 71.75%, Val Precision: 0.7258, Val Recall: 0.7175, Val F1 Score: 0.7191
+Epoch 25/25, Train Loss: 0.4670, Val Loss: 0.7634, Val Accuracy: 71.00%, Val Precision: 0.7167, Val Recall: 0.7100, Val F1 Score: 0.7116
+
+Test Accuracy: 69.80%, Test Precision: 0.6987, Test Recall: 0.6980, Test F1 Score: 0.6981
+Confusion Matrix:
+[[68 10  3 10  9]
+ [ 7 79  0  2 12]
+ [ 3  3 83  5  6]
+ [10  3  3 63 21]
+ [13  7 11 13 56]]
