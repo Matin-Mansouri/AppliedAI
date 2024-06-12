@@ -6,7 +6,7 @@ import torchvision.transforms as transforms
 import os
 from torch.utils.data import DataLoader
 from torch.optim.lr_scheduler import StepLR
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
+from sklearn.metrics import precision_score, recall_score, f1_score, confusion_matrix
 import matplotlib.pyplot as plt
 
 # Define transformations with data augmentation for the training set
@@ -29,7 +29,7 @@ train_dataset = torchvision.datasets.ImageFolder(root='/content/drive/MyDrive/Co
 val_dataset = torchvision.datasets.ImageFolder(root='/content/drive/MyDrive/Colab Notebooks/DataSet/val', transform=val_test_transform)
 test_dataset = torchvision.datasets.ImageFolder(root='/content/drive/MyDrive/Colab Notebooks/DataSet/test', transform=val_test_transform)
 
-train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)  # Increased batch size
+train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=64, shuffle=False)
 test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
 
@@ -40,14 +40,17 @@ class ImprovedCNN(nn.Module):
         self.conv2 = nn.Conv2d(32, 64, kernel_size=3, padding=1)
         self.conv3 = nn.Conv2d(64, 128, kernel_size=3, padding=1)
         self.conv4 = nn.Conv2d(128, 256, kernel_size=3, padding=1)
+        self.conv5 = nn.Conv2d(256, 512, kernel_size=3, padding=1)
+        self.conv6 = nn.Conv2d(512, 1024, kernel_size=3, padding=1)  # Additional layer
         self.pool = nn.MaxPool2d(kernel_size=2, stride=2, padding=0)
         self.dropout = nn.Dropout(0.5)
         self.batch_norm1 = nn.BatchNorm2d(32)
         self.batch_norm2 = nn.BatchNorm2d(64)
         self.batch_norm3 = nn.BatchNorm2d(128)
         self.batch_norm4 = nn.BatchNorm2d(256)
-        self.batch_norm5 = nn.BatchNorm2d(512)  
-        self.fc1 = nn.Linear(512 * 8 * 8, 512)
+        self.batch_norm5 = nn.BatchNorm2d(512)
+        self.batch_norm6 = nn.BatchNorm2d(1024)  # Additional batch norm
+        self.fc1 = nn.Linear(1024 * 4 * 4, 512)  # Adjusted for new layer
         self.fc2 = nn.Linear(512, 128)
         self.fc3 = nn.Linear(128, 5)  # 5 classes
 
@@ -56,8 +59,9 @@ class ImprovedCNN(nn.Module):
         x = self.pool(self.batch_norm2(nn.LeakyReLU()(self.conv2(x))))
         x = self.pool(self.batch_norm3(nn.LeakyReLU()(self.conv3(x))))
         x = self.pool(self.batch_norm4(nn.LeakyReLU()(self.conv4(x))))
-        x = self.pool(self.batch_norm5(nn.LeakyReLU()(self.conv5(x))))  
-        x = x.view(-1, 512 * 8 * 8)
+        x = self.pool(self.batch_norm5(nn.LeakyReLU()(self.conv5(x))))
+        x = self.pool(self.batch_norm6(nn.LeakyReLU()(self.conv6(x))))  # Additional layer forward
+        x = x.view(-1, 1024 * 4 * 4)  # Adjusted for new layer
         x = nn.LeakyReLU()(self.fc1(x))
         x = self.dropout(x)
         x = nn.LeakyReLU()(self.fc2(x))
@@ -79,7 +83,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 model = model.to(device)
 
 # Function to plot the performance metrics
-def plot_metrics(train_losses, val_losses, val_accuracies, val_precisions, val_recalls, val_f1_scores):
+def plot_metrics(train_losses, val_losses, train_accuracies, val_accuracies, train_precisions, val_precisions, train_recalls, val_recalls, train_f1_scores, val_f1_scores):
     epochs = range(1, len(train_losses) + 1)
 
     plt.figure(figsize=(14, 10))
@@ -93,17 +97,21 @@ def plot_metrics(train_losses, val_losses, val_accuracies, val_precisions, val_r
     plt.legend()
 
     plt.subplot(2, 2, 2)
+    plt.plot(epochs, train_accuracies, 'r', label='Training accuracy')
     plt.plot(epochs, val_accuracies, 'b', label='Validation accuracy')
-    plt.title('Validation accuracy')
+    plt.title('Training and Validation accuracy')
     plt.xlabel('Epochs')
     plt.ylabel('Accuracy')
     plt.legend()
 
     plt.subplot(2, 2, 3)
+    plt.plot(epochs, train_precisions, 'r', label='Training precision')
     plt.plot(epochs, val_precisions, 'b', label='Validation precision')
-    plt.plot(epochs, val_recalls, 'g', label='Validation recall')
-    plt.plot(epochs, val_f1_scores, 'r', label='Validation F1 score')
-    plt.title('Validation precision, recall, and F1 score')
+    plt.plot(epochs, train_recalls, 'g', label='Training recall')
+    plt.plot(epochs, val_recalls, 'c', label='Validation recall')
+    plt.plot(epochs, train_f1_scores, 'm', label='Training F1 score')
+    plt.plot(epochs, val_f1_scores, 'y', label='Validation F1 score')
+    plt.title('Training and Validation precision, recall, and F1 score')
     plt.xlabel('Epochs')
     plt.ylabel('Score')
     plt.legend()
@@ -115,14 +123,23 @@ def plot_metrics(train_losses, val_losses, val_accuracies, val_precisions, val_r
 def train_model(model, train_loader, val_loader, criterion, optimizer, scheduler, num_epochs=25):
     train_losses = []
     val_losses = []
+    train_accuracies = []
     val_accuracies = []
+    train_precisions = []
     val_precisions = []
+    train_recalls = []
     val_recalls = []
+    train_f1_scores = []
     val_f1_scores = []
 
     for epoch in range(num_epochs):
         model.train()
         running_loss = 0.0
+        correct = 0
+        total = 0
+        all_preds = []
+        all_labels = []
+
         for inputs, labels in train_loader:
             inputs, labels = inputs.to(device), labels.to(device)
             optimizer.zero_grad()
@@ -131,9 +148,22 @@ def train_model(model, train_loader, val_loader, criterion, optimizer, scheduler
             loss.backward()
             optimizer.step()
             running_loss += loss.item() * inputs.size(0)
+            _, predicted = torch.max(outputs.data, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+            all_preds.extend(predicted.cpu().numpy())
+            all_labels.extend(labels.cpu().numpy())
 
         epoch_loss = running_loss / len(train_loader.dataset)
         train_losses.append(epoch_loss)
+        train_accuracy = 100 * correct / total
+        train_accuracies.append(train_accuracy)
+        train_precision = precision_score(all_labels, all_preds, average='weighted')
+        train_precisions.append(train_precision)
+        train_recall = recall_score(all_labels, all_preds, average='weighted')
+        train_recalls.append(train_recall)
+        train_f1 = f1_score(all_labels, all_preds, average='weighted')
+        train_f1_scores.append(train_f1)
 
         scheduler.step()
 
@@ -168,10 +198,12 @@ def train_model(model, train_loader, val_loader, criterion, optimizer, scheduler
         val_f1_scores.append(val_f1)
 
         print(f'Epoch {epoch+1}/{num_epochs}, Train Loss: {epoch_loss:.4f}, Val Loss: {val_loss:.4f}, '
-              f'Val Accuracy: {val_accuracy:.2f}%, Val Precision: {val_precision:.4f}, '
-              f'Val Recall: {val_recall:.4f}, Val F1 Score: {val_f1:.4f}')
+              f'Train Accuracy: {train_accuracy:.2f}%, Val Accuracy: {val_accuracy:.2f}%, '
+              f'Train Precision: {train_precision:.4f}, Val Precision: {val_precision:.4f}, '
+              f'Train Recall: {train_recall:.4f}, Val Recall: {val_recall:.4f}, '
+              f'Train F1 Score: {train_f1:.4f}, Val F1 Score: {val_f1:.4f}')
 
-    plot_metrics(train_losses, val_losses, val_accuracies, val_precisions, val_recalls, val_f1_scores)
+    plot_metrics(train_losses, val_losses, train_accuracies, val_accuracies, train_precisions, val_precisions, train_recalls, val_recalls, train_f1_scores, val_f1_scores)
 
 # Use the updated train_model function
 train_model(model, train_loader, val_loader, criterion, optimizer, scheduler)
