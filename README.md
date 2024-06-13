@@ -100,7 +100,7 @@ to run semi_suprvised.py:
 2- repalce the base path  in scripts.
 3- run predifined.py script in google colab  
  with running this script the accuracy of the test will be compued.  the model is a decision tree  calssifyer with gained hyperparameter values, including max_depth=10, min_samples_split=20 ,min_samples_leaf=13 mode. 
-
+```
 ### Project Details:
 ```bash
 The detailed methodologies, dataset preparation, and results are documented in the project report. Below is a brief overview:
@@ -116,6 +116,7 @@ The detailed methodologies, dataset preparation, and results are documented in t
  2- the semi-supervised Decision Tree Classifier
 - **Results**: Performance metrics including accuracy, precision, recall, and F1 score and confusion matrix are evaluated for both training and validation sets.
 
+```
 ## Authors and Contacts
 
 - Matin Mansouri: [matin.mansouri23@gmail.com](mailto:matin.mansouri23@gmail.com)
