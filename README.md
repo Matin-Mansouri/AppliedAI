@@ -102,7 +102,7 @@ to run semi_suprvised.py:
  with running this script the accuracy of the test will be compued.  the model is a decision tree  calssifyer with gained hyperparameter values, including max_depth=10, min_samples_split=20 ,min_samples_leaf=13 mode. 
 
 ### Project Details
-
+```bash
 The detailed methodologies, dataset preparation, and results are documented in the project report. Below is a brief overview:
 
 - **Database**: The dataset is a part of the publicly available Places365Standard dataset, with images 256x256 pixels and normalized.The images are 
