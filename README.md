@@ -94,6 +94,13 @@ to run semi_suprvised.py:
 2- repalce the data_dir path  in scripts.
 3- run Semi_supervised.py script in google colab  
 
+### Run the pre-defined scripts:
+```bash
+1- Download the test dataset file from root
+2- repalce the base path  in scripts.
+3- run predifined.py script in google colab  
+ with running this script the accuracy of the test will be compued.  the model is a decision tree  calssifyer with gained hyperparameter values, including max_depth=10, min_samples_split=20 ,min_samples_leaf=13 mode. 
+
 ## Project Details
 
 The detailed methodologies, dataset preparation, and results are documented in the project report. Below is a brief overview:
@@ -105,7 +112,8 @@ The detailed methodologies, dataset preparation, and results are documented in t
   the original dataset  is a large-scale venue classification dataset comprising approximately 1.8 million training images and 36,500 validation 
   images across 365 classes. The original images are colorful and 256x256 pixelsin size and are available for download from the official Places
   website( Places365 website: http://places2.csail.mit.edu/download.html)
-- **Model**: Decision Tree Classifier from the Scikit-learn library with hyperparameter tuning using GridSearchCV.
+- **Model**: -- The Decision Tree Classifier from the Scikit-learn library with hyperparameter tuning using GridSearchCV. The best-evaluated hyperparameter includes max_depth=10, min_samples_split=20, and min_samples_leaf=13 mode. The values evaluated among these values are max_depth: [4, 7, 8, 10, 12, 14], min_samples_split: [4, 8, 11, 13], and min_samples_leaf: [15, 20, 30].
+-- the semi-supervised Decision Tree Classifier
 - **Results**: Performance metrics including accuracy, precision, recall, and F1 score and confusion matrix are evaluated for both training and validation sets.
 
 ## Authors and Contacts
