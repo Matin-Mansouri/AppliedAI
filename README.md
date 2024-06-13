@@ -101,7 +101,7 @@ to run semi_suprvised.py:
 3- run predifined.py script in google colab  
  with running this script the accuracy of the test will be compued.  the model is a decision tree  calssifyer with gained hyperparameter values, including max_depth=10, min_samples_split=20 ,min_samples_leaf=13 mode. 
 
-## Project Details
+### Project Details
 
 The detailed methodologies, dataset preparation, and results are documented in the project report. Below is a brief overview:
 
