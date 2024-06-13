@@ -121,7 +121,7 @@ The detailed methodologies, dataset preparation, and results are documented in t
           max_depth: [4, 7, 8, 10, 12, 14], min_samples_split: [4, 8, 11, 13], and min_samples_leaf: [15, 20, 30].
           2- the semi-supervised Decision Tree Classifier
 
-- **Result**: Performance metrics including accuracy, precision, recall, and F1 score and confusion matrix are evaluated for both training and validation sets.
+- **Result**: Performance metrics including accuracy, precision, recall, and F1 score and confusion matrix are evaluated for both training and validation sets. the accuracy for test data for Decision Tree classifier and semi-supervised Decision Tree classifier is .31 and .33 respectively.
 
 `
 ## Authors and Contacts
