@@ -98,9 +98,10 @@ to run semi_suprvised.py:
 
 The detailed methodologies, dataset preparation, and results are documented in the project report. Below is a brief overview:
 
-- **Database**: The dataset is a part of the publicly available Places365Standard dataset, with images resized to 256x256 pixels and normalized.
-- the original dataset  is a large-scale venue classification dataset comprising approximately 1.8 million training images and 36,500 validation images across 365 classes. The original images are colorful and 256x256 pixelsin size and are available for download from the official Places
-website( Places365 website: http://places2.csail.mit.edu/download.html)
+- **Database**: The dataset is a part of the publicly available Places365Standard dataset, with images resized to 256x256 pixels and normalized
+  the original dataset  is a large-scale venue classification dataset comprising approximately 1.8 million training images and 36,500 validation 
+  images across 365 classes. The original images are colorful and 256x256 pixelsin size and are available for download from the official Places
+  website( Places365 website: http://places2.csail.mit.edu/download.html)
 - **Model**: Decision Tree Classifier from the Scikit-learn library with hyperparameter tuning using GridSearchCV.
 - **Results**: Performance metrics including accuracy, precision, recall, and F1 score and confusion matrix are evaluated for both training and validation sets.
 
