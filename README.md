@@ -116,10 +116,10 @@ The detailed methodologies, dataset preparation, and results are documented in t
   images across 365 classes. The original images are colorful and 256x256 pixelsin size and are available for download from the official Places
   website( Places365 website: http://places2.csail.mit.edu/download.html)
 
-- **Model**: 1- The Decision Tree Classifier from the Scikit-learn library with hyperparameter tuning using GridSearchCV. The best-evaluated 
-          hyperparameter includes max_depth=10, min_samples_split=20, and min_samples_leaf=13 mode. The values evaluated among these values are 
-          max_depth: [4, 7, 8, 10, 12, 14], min_samples_split: [4, 8, 11, 13], and min_samples_leaf: [15, 20, 30].
-          2- the semi-supervised Decision Tree Classifier
+- **Model**: 1. The Decision Tree Classifier from the Scikit-learn library with hyperparameter tuning using GridSearchCV. The best-evaluated 
+                hyperparameter includes max_depth=10, min_samples_split=20, and min_samples_leaf=13 mode. The values evaluated among these values are 
+                max_depth: [4, 7, 8, 10, 12, 14], min_samples_split: [4, 8, 11, 13], and min_samples_leaf: [15, 20, 30].
+             2. the semi-supervised Decision Tree Classifier.
 
 - **Result**: Performance metrics including accuracy, precision, recall, and F1 score and confusion matrix are evaluated for both training and validation sets. the accuracy for test data for Decision Tree classifier and semi-supervised Decision Tree classifier is .31 and .33 respectively.
 
