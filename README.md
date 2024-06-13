@@ -45,7 +45,7 @@ The Decision Tree methodologies are implemented and included in this repository,
   - `Main_withoutNormalization.py`:  in this file the feature exteracted from images do not normalized.
   - `Main_withoutNormalization_optimization.py`: in this file the feature exteracted from images do not normalized.
      features value
- -`Semi_supervised.py`: semisupervised classifier with Decision tree model useing iteration
+ -`Semi_supervised.py`:define a semisupervised classifier with Decision tree model useing iteration
 
  
 
@@ -98,7 +98,10 @@ to run semi_suprvised.py:
 
 The detailed methodologies, dataset preparation, and results are documented in the project report. Below is a brief overview:
 
-- **Database**: The dataset is a part of the publicly available Places365Standard dataset, with images resized to 256x256 pixels and normalized
+- **Database**: The dataset is a part of the publicly available Places365Standard dataset, with images 256x256 pixels and normalized.The images are 
+  organized into folders according
+  to their respective classes and are in JPEG format.we selected five specific classes form original dataset: "airport_terminal" "market" 
+  "movie_theater" "museum" and "restaurant" and each class, 500 images were randomly chosen from original dataset.
   the original dataset  is a large-scale venue classification dataset comprising approximately 1.8 million training images and 36,500 validation 
   images across 365 classes. The original images are colorful and 256x256 pixelsin size and are available for download from the official Places
   website( Places365 website: http://places2.csail.mit.edu/download.html)
