@@ -104,7 +104,8 @@ to run semi_suprvised.py:
 ### Project Details:
 ```bash
 The detailed methodologies, dataset preparation, and results are documented in the project report. Below is a brief overview:
-
+```
+1. **Database**
 - `Database`: The dataset is a part of the publicly available Places365Standard dataset, with images 256x256 pixels and normalized.The images are 
   organized into folders according
   to their respective classes and are in JPEG format.we selected five specific classes form original dataset: "airport_terminal" "market" 
