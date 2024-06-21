@@ -1,0 +1,35 @@
+/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_classification.py:1344: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch 1/25, Train Loss: 1.3723, Val Loss: 1.8022, Train Accuracy: 43.25%, Val Accuracy: 32.25%, Train Precision: 0.4105, Val Precision: 0.1296, Train Recall: 0.4325, Val Recall: 0.3225, Train F1 Score: 0.4053, Val F1 Score: 0.1848
+Epoch 2/25, Train Loss: 1.1506, Val Loss: 1.5665, Train Accuracy: 53.38%, Val Accuracy: 39.25%, Train Precision: 0.5137, Val Precision: 0.4087, Train Recall: 0.5337, Val Recall: 0.3925, Train F1 Score: 0.5159, Val F1 Score: 0.3067
+Epoch 3/25, Train Loss: 1.0656, Val Loss: 1.0657, Train Accuracy: 58.31%, Val Accuracy: 60.50%, Train Precision: 0.5755, Val Precision: 0.6095, Train Recall: 0.5831, Val Recall: 0.6050, Train F1 Score: 0.5731, Val F1 Score: 0.6050
+Epoch 4/25, Train Loss: 1.0269, Val Loss: 1.0406, Train Accuracy: 58.81%, Val Accuracy: 58.00%, Train Precision: 0.5816, Val Precision: 0.6083, Train Recall: 0.5881, Val Recall: 0.5800, Train F1 Score: 0.5811, Val F1 Score: 0.5667
+Epoch 5/25, Train Loss: 0.9330, Val Loss: 0.9304, Train Accuracy: 63.56%, Val Accuracy: 64.75%, Train Precision: 0.6299, Val Precision: 0.6561, Train Recall: 0.6356, Val Recall: 0.6475, Train F1 Score: 0.6316, Val F1 Score: 0.6465
+Epoch 6/25, Train Loss: 0.8344, Val Loss: 0.9137, Train Accuracy: 67.56%, Val Accuracy: 66.50%, Train Precision: 0.6716, Val Precision: 0.6598, Train Recall: 0.6756, Val Recall: 0.6650, Train F1 Score: 0.6722, Val F1 Score: 0.6514
+Epoch 7/25, Train Loss: 0.8410, Val Loss: 0.9596, Train Accuracy: 67.62%, Val Accuracy: 64.75%, Train Precision: 0.6726, Val Precision: 0.6710, Train Recall: 0.6763, Val Recall: 0.6475, Train F1 Score: 0.6728, Val F1 Score: 0.6459
+Epoch 8/25, Train Loss: 0.6932, Val Loss: 0.8577, Train Accuracy: 75.50%, Val Accuracy: 67.00%, Train Precision: 0.7548, Val Precision: 0.6860, Train Recall: 0.7550, Val Recall: 0.6700, Train F1 Score: 0.7522, Val F1 Score: 0.6727
+Epoch 9/25, Train Loss: 0.6187, Val Loss: 0.8203, Train Accuracy: 77.88%, Val Accuracy: 68.25%, Train Precision: 0.7771, Val Precision: 0.6915, Train Recall: 0.7788, Val Recall: 0.6825, Train F1 Score: 0.7775, Val F1 Score: 0.6847
+Epoch 10/25, Train Loss: 0.6092, Val Loss: 0.8090, Train Accuracy: 78.44%, Val Accuracy: 70.75%, Train Precision: 0.7830, Val Precision: 0.7058, Train Recall: 0.7844, Val Recall: 0.7075, Train F1 Score: 0.7835, Val F1 Score: 0.7056
+Epoch 11/25, Train Loss: 0.5794, Val Loss: 0.8122, Train Accuracy: 78.94%, Val Accuracy: 70.50%, Train Precision: 0.7885, Val Precision: 0.7071, Train Recall: 0.7894, Val Recall: 0.7050, Train F1 Score: 0.7880, Val F1 Score: 0.7056
+Epoch 12/25, Train Loss: 0.5498, Val Loss: 0.7967, Train Accuracy: 79.88%, Val Accuracy: 70.50%, Train Precision: 0.7966, Val Precision: 0.7154, Train Recall: 0.7987, Val Recall: 0.7050, Train F1 Score: 0.7972, Val F1 Score: 0.7073
+Epoch 13/25, Train Loss: 0.5388, Val Loss: 0.7909, Train Accuracy: 80.69%, Val Accuracy: 70.25%, Train Precision: 0.8070, Val Precision: 0.7036, Train Recall: 0.8069, Val Recall: 0.7025, Train F1 Score: 0.8068, Val F1 Score: 0.7027
+Epoch 14/25, Train Loss: 0.5053, Val Loss: 0.7896, Train Accuracy: 82.31%, Val Accuracy: 71.75%, Train Precision: 0.8227, Val Precision: 0.7217, Train Recall: 0.8231, Val Recall: 0.7175, Train F1 Score: 0.8222, Val F1 Score: 0.7191
+Epoch 15/25, Train Loss: 0.4915, Val Loss: 0.7874, Train Accuracy: 83.25%, Val Accuracy: 71.00%, Train Precision: 0.8314, Val Precision: 0.7147, Train Recall: 0.8325, Val Recall: 0.7100, Train F1 Score: 0.8317, Val F1 Score: 0.7118
+Epoch 16/25, Train Loss: 0.4770, Val Loss: 0.7866, Train Accuracy: 83.50%, Val Accuracy: 71.75%, Train Precision: 0.8350, Val Precision: 0.7247, Train Recall: 0.8350, Val Recall: 0.7175, Train F1 Score: 0.8347, Val F1 Score: 0.7201
+Epoch 17/25, Train Loss: 0.4716, Val Loss: 0.7885, Train Accuracy: 83.88%, Val Accuracy: 71.50%, Train Precision: 0.8379, Val Precision: 0.7238, Train Recall: 0.8387, Val Recall: 0.7150, Train F1 Score: 0.8381, Val F1 Score: 0.7181
+Epoch 18/25, Train Loss: 0.4724, Val Loss: 0.7883, Train Accuracy: 83.25%, Val Accuracy: 71.50%, Train Precision: 0.8317, Val Precision: 0.7220, Train Recall: 0.8325, Val Recall: 0.7150, Train F1 Score: 0.8320, Val F1 Score: 0.7175
+Epoch 19/25, Train Loss: 0.4628, Val Loss: 0.7859, Train Accuracy: 83.25%, Val Accuracy: 71.25%, Train Precision: 0.8317, Val Precision: 0.7194, Train Recall: 0.8325, Val Recall: 0.7125, Train F1 Score: 0.8318, Val F1 Score: 0.7150
+Epoch 20/25, Train Loss: 0.4826, Val Loss: 0.7881, Train Accuracy: 82.69%, Val Accuracy: 71.50%, Train Precision: 0.8256, Val Precision: 0.7221, Train Recall: 0.8269, Val Recall: 0.7150, Train F1 Score: 0.8261, Val F1 Score: 0.7177
+Epoch 21/25, Train Loss: 0.4705, Val Loss: 0.7873, Train Accuracy: 84.50%, Val Accuracy: 71.25%, Train Precision: 0.8448, Val Precision: 0.7211, Train Recall: 0.8450, Val Recall: 0.7125, Train F1 Score: 0.8447, Val F1 Score: 0.7156
+Epoch 22/25, Train Loss: 0.4731, Val Loss: 0.7873, Train Accuracy: 83.19%, Val Accuracy: 71.50%, Train Precision: 0.8320, Val Precision: 0.7241, Train Recall: 0.8319, Val Recall: 0.7150, Train F1 Score: 0.8319, Val F1 Score: 0.7180
+Epoch 23/25, Train Loss: 0.4706, Val Loss: 0.7882, Train Accuracy: 83.25%, Val Accuracy: 71.50%, Train Precision: 0.8320, Val Precision: 0.7234, Train Recall: 0.8325, Val Recall: 0.7150, Train F1 Score: 0.8319, Val F1 Score: 0.7180
+Epoch 24/25, Train Loss: 0.4594, Val Loss: 0.7901, Train Accuracy: 84.88%, Val Accuracy: 71.25%, Train Precision: 0.8478, Val Precision: 0.7187, Train Recall: 0.8488, Val Recall: 0.7125, Train F1 Score: 0.8480, Val F1 Score: 0.7147
+Epoch 25/25, Train Loss: 0.4676, Val Loss: 0.7900, Train Accuracy: 84.00%, Val Accuracy: 71.25%, Train Precision: 0.8389, Val Precision: 0.7203, Train Recall: 0.8400, Val Recall: 0.7125, Train F1 Score: 0.8391, Val F1 Score: 0.7153
+
+Test Accuracy: 71.20%, Test Precision: 0.7228, Test Recall: 0.7120, Test F1 Score: 0.7145
+Confusion Matrix:
+[[75  7  3  8  7]
+ [ 6 77  0  2 15]
+ [ 3  2 82  4  9]
+ [11  4  1 58 26]
+ [13  6  8  9 64]]
