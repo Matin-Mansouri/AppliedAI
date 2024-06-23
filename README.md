@@ -123,6 +123,21 @@ pip install -r requirements.txt
 cd AppliedAI/Code
 ```
 
+### Run the pre-defined scripts:
+bash
+1. Download the test dataset file from the root.
+2. Replace the base path in the scripts.
+3. Run CNN.py script in Google Colab.
+   - Running this script will compute the performance metrics of the test dataset using the CNN model with the best hyperparameters:
+     - Activation function: ReLU
+     - Batchsize: 64
+     - Dropout: 0.2
+     - Fully Connected Layers (FC): 5 layers
+     - Learning rate: 0.0001
+     - Optimizer: ADAM
+     - With batch normalization
+
+
 
  
 ### Project Details :
@@ -149,6 +164,10 @@ The detailed methodologies, dataset preparation, and results are documented in t
       - Optimizer: ADAM
       - With batch normalization
 
+  ***How the model was trained and validated:***
+  In our initial attempt to create a CNN model, we designed a structure comprising four convolutional layers. Each layer was followed by batch normalization and max pooling. Fully Connected Layers (FC layers): After the convolutional and pooling layers, the model utilized fully connected layers to transform the learned feature space into output classes. In the FC1 layer, the flattened vector was converted into 512 neurons to capture a dense representation of the high-dimensional input space. Then, in FC2, the number of neurons was reduced to 128 to create a more distinct representation of the learned features. Finally, FC3 mapped the 128 neurons to the 5 output classes corresponding to the venue categories. These fully connected layers involved ReLU activations.  
+  In addition, we employed data augmentation techniques such as random horizontal flips, rotations, and color adjustments on the training data to enhance the model's ability to generalize.
+  After extensive experimentation with various architectures and hyperparameters, our final CNN model achieved the best validation results. This optimized model includes six convolutional layers for detailed feature extraction, a dropout rate of 0.2 to prevent overfitting, and a batch size of 64 for stable and efficient training. The fully connected (FC) section included four hidden layers, allowing the model to process the high-level 16384 features extracted by the convolutional layers. This configuration led to a balanced and robust model, which performed well on both the validation and test datasets. On the test data, the model achieved an accuracy of 70.00%, reflecting its generalization capabilities and effectiveness in handling the venue classification tasks.
             
 
 - Result: Performance metrics including accuracy, precision, recall, F1 score, and confusion matrix are evaluated for training and validation sets. The accuracy for test data for the Decision Tree classifier and semi-supervised Decision Tree classifier is 0.31 and 0.33, respectively.
