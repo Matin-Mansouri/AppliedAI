@@ -106,8 +106,7 @@ In this project, we classify images into five distinct venue categories: airport
 Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/AppliedAI.git
-cd AppliedAI
+git clone https://github.com/Matin-Mansouri/AppliedAI
 ```
 
 ### Install the required packages:
